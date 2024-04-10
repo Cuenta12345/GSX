@@ -1,0 +1,142 @@
+  TIME: 2024-04-08 08:06:54.101
+    IP: 0.0.0.0 (0:16:3e:9c:a7:ca) > 255.255.255.255 (ff:ff:ff:ff:ff:ff)
+    OP: 1 (BOOTPREQUEST)
+ HTYPE: 1 (Ethernet)
+  HLEN: 6
+  HOPS: 0
+   XID: 7289204a
+  SECS: 0
+ FLAGS: 0
+CIADDR: 0.0.0.0
+YIADDR: 0.0.0.0
+SIADDR: 0.0.0.0
+GIADDR: 0.0.0.0
+CHADDR: 00:16:3e:9c:a7:ca:00:00:00:00:00:00:00:00:00:00
+ SNAME: .
+ FNAME: .
+OPTION:  53 (  1) DHCP message type         1 (DHCPDISCOVER)
+OPTION:  50 (  4) Request IP address        172.24.248.82
+OPTION:  55 ( 13) Parameter Request List      1 (Subnet mask)
+					     28 (Broadcast address)
+					      2 (Time offset)
+					      3 (Routers)
+					     15 (Domainname)
+					      6 (DNS server)
+					    119 (Domain Search)
+					     12 (Host name)
+					     44 (NetBIOS name server)
+					     47 (NetBIOS scope)
+					     26 (Interface MTU)
+					    121 (Classless Static Route)
+					     42 (NTP servers)
+					    
+OPTION:  61 ( 19) Client-identifier         ff:3e:9c:a7:ca:00:01:00:01:2d:a6:5e:fd:00:16:3e:9c:a7:ca
+---------------------------------------------------------------------------
+
+  TIME: 2024-04-08 08:06:55.141
+    IP: 0.0.0.0 (0:16:3e:9c:a7:ca) > 255.255.255.255 (ff:ff:ff:ff:ff:ff)
+    OP: 1 (BOOTPREQUEST)
+ HTYPE: 1 (Ethernet)
+  HLEN: 6
+  HOPS: 0
+   XID: 7289204a
+  SECS: 0
+ FLAGS: 0
+CIADDR: 0.0.0.0
+YIADDR: 0.0.0.0
+SIADDR: 0.0.0.0
+GIADDR: 0.0.0.0
+CHADDR: 00:16:3e:9c:a7:ca:00:00:00:00:00:00:00:00:00:00
+ SNAME: .
+ FNAME: .
+OPTION:  53 (  1) DHCP message type         3 (DHCPREQUEST)
+OPTION:  54 (  4) Server identifier         172.24.248.94
+OPTION:  50 (  4) Request IP address        172.24.248.82
+OPTION:  55 ( 13) Parameter Request List      1 (Subnet mask)
+					     28 (Broadcast address)
+					      2 (Time offset)
+					      3 (Routers)
+					     15 (Domainname)
+					      6 (DNS server)
+					    119 (Domain Search)
+					     12 (Host name)
+					     44 (NetBIOS name server)
+					     47 (NetBIOS scope)
+					     26 (Interface MTU)
+					    121 (Classless Static Route)
+					     42 (NTP servers)
+					    
+OPTION:  61 ( 19) Client-identifier         ff:3e:9c:a7:ca:00:01:00:01:2d:a6:5e:fd:00:16:3e:9c:a7:ca
+---------------------------------------------------------------------------
+
+  TIME: 2024-04-08 08:07:07.101
+    IP: 0.0.0.0 (0:16:3e:23:f3:45) > 255.255.255.255 (ff:ff:ff:ff:ff:ff)
+    OP: 1 (BOOTPREQUEST)
+ HTYPE: 1 (Ethernet)
+  HLEN: 6
+  HOPS: 0
+   XID: 7976b924
+  SECS: 0
+ FLAGS: 0
+CIADDR: 0.0.0.0
+YIADDR: 0.0.0.0
+SIADDR: 0.0.0.0
+GIADDR: 0.0.0.0
+CHADDR: 00:16:3e:23:f3:45:00:00:00:00:00:00:00:00:00:00
+ SNAME: .
+ FNAME: .
+OPTION:  53 (  1) DHCP message type         1 (DHCPDISCOVER)
+OPTION:  50 (  4) Request IP address        172.24.248.83
+OPTION:  55 ( 13) Parameter Request List      1 (Subnet mask)
+					     28 (Broadcast address)
+					      2 (Time offset)
+					      3 (Routers)
+					     15 (Domainname)
+					      6 (DNS server)
+					    119 (Domain Search)
+					     12 (Host name)
+					     44 (NetBIOS name server)
+					     47 (NetBIOS scope)
+					     26 (Interface MTU)
+					    121 (Classless Static Route)
+					     42 (NTP servers)
+					    
+OPTION:  61 ( 19) Client-identifier         ff:3e:23:f3:45:00:01:00:01:2d:a6:5e:fb:00:16:3e:23:f3:45
+---------------------------------------------------------------------------
+
+  TIME: 2024-04-08 08:07:08.141
+    IP: 0.0.0.0 (0:16:3e:23:f3:45) > 255.255.255.255 (ff:ff:ff:ff:ff:ff)
+    OP: 1 (BOOTPREQUEST)
+ HTYPE: 1 (Ethernet)
+  HLEN: 6
+  HOPS: 0
+   XID: 7976b924
+  SECS: 0
+ FLAGS: 0
+CIADDR: 0.0.0.0
+YIADDR: 0.0.0.0
+SIADDR: 0.0.0.0
+GIADDR: 0.0.0.0
+CHADDR: 00:16:3e:23:f3:45:00:00:00:00:00:00:00:00:00:00
+ SNAME: .
+ FNAME: .
+OPTION:  53 (  1) DHCP message type         3 (DHCPREQUEST)
+OPTION:  54 (  4) Server identifier         172.24.248.94
+OPTION:  50 (  4) Request IP address        172.24.248.83
+OPTION:  55 ( 13) Parameter Request List      1 (Subnet mask)
+					     28 (Broadcast address)
+					      2 (Time offset)
+					      3 (Routers)
+					     15 (Domainname)
+					      6 (DNS server)
+					    119 (Domain Search)
+					     12 (Host name)
+					     44 (NetBIOS name server)
+					     47 (NetBIOS scope)
+					     26 (Interface MTU)
+					    121 (Classless Static Route)
+					     42 (NTP servers)
+					    
+OPTION:  61 ( 19) Client-identifier         ff:3e:23:f3:45:00:01:00:01:2d:a6:5e:fb:00:16:3e:23:f3:45
+---------------------------------------------------------------------------
+

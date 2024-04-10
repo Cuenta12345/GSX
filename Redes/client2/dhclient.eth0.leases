@@ -1,0 +1,33 @@
+default-duid "\000\001\000\001-\246^\373\000\026>#\363E";
+lease {
+  interface "eth0";
+  fixed-address 172.24.248.83;
+  option subnet-mask 255.255.255.240;
+  option routers 172.24.248.81;
+  option dhcp-lease-time 7200;
+  option dhcp-message-type 5;
+  option domain-name-servers 198.18.249.254;
+  option dhcp-server-identifier 172.24.248.94;
+  option domain-search "intranet.gsx.", "dmz.gsx.";
+  option host-name "client-83";
+  option domain-name "intranet.gsx";
+  renew 1 2024/04/08 08:13:12;
+  rebind 1 2024/04/08 08:13:12;
+  expire 1 2024/04/08 08:13:12;
+}
+lease {
+  interface "eth0";
+  fixed-address 172.24.248.83;
+  option subnet-mask 255.255.255.240;
+  option routers 172.24.248.81;
+  option dhcp-lease-time 7200;
+  option dhcp-message-type 5;
+  option domain-name-servers 198.18.249.254;
+  option dhcp-server-identifier 172.24.248.94;
+  option domain-search "intranet.gsx.", "dmz.gsx.";
+  option host-name "client-83";
+  option domain-name "intranet.gsx";
+  renew 1 2024/04/08 09:04:06;
+  rebind 1 2024/04/08 09:58:31;
+  expire 1 2024/04/08 10:13:31;
+}

@@ -1,0 +1,15 @@
+
+; <<>> DiG 9.16.48-Debian <<>> dmz.gsx AXFR
+;; global options: +cmd
+dmz.gsx.		604800	IN	SOA	ns.dmz.gsx. root.ns.dmz.gsx. 2024032601 604800 86400 2419200 604800
+dmz.gsx.		604800	IN	NS	ns.dmz.gsx.
+ns.dmz.gsx.		604800	IN	A	198.18.249.254
+router.dmz.gsx.		604800	IN	A	198.18.248.1
+server.dmz.gsx.		604800	IN	CNAME	ns.dmz.gsx.
+www.dmz.gsx.		604800	IN	CNAME	ns.dmz.gsx.
+dmz.gsx.		604800	IN	SOA	ns.dmz.gsx. root.ns.dmz.gsx. 2024032601 604800 86400 2419200 604800
+;; Query time: 8 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Mon Apr 08 08:22:18 UTC 2024
+;; XFR size: 7 records (messages 1, bytes 236)
+

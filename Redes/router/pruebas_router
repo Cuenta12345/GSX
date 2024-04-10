@@ -1,0 +1,297 @@
+
+Pruebas de consultas directas a todas las zonas
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search ns
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 15440
+;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 27
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 3e397cbacf53dccb010000006613aa0502df6d7fd424c283 (good)
+;; QUESTION SECTION:
+;.				IN	NS
+
+;; ANSWER SECTION:
+.			516989	IN	NS	k.root-servers.net.
+.			516989	IN	NS	a.root-servers.net.
+.			516989	IN	NS	j.root-servers.net.
+.			516989	IN	NS	e.root-servers.net.
+.			516989	IN	NS	h.root-servers.net.
+.			516989	IN	NS	g.root-servers.net.
+.			516989	IN	NS	b.root-servers.net.
+.			516989	IN	NS	f.root-servers.net.
+.			516989	IN	NS	c.root-servers.net.
+.			516989	IN	NS	d.root-servers.net.
+.			516989	IN	NS	i.root-servers.net.
+.			516989	IN	NS	m.root-servers.net.
+.			516989	IN	NS	l.root-servers.net.
+
+;; ADDITIONAL SECTION:
+a.root-servers.net.	516989	IN	A	198.41.0.4
+b.root-servers.net.	516989	IN	A	170.247.170.2
+c.root-servers.net.	516989	IN	A	192.33.4.12
+d.root-servers.net.	516989	IN	A	199.7.91.13
+e.root-servers.net.	516989	IN	A	192.203.230.10
+f.root-servers.net.	516989	IN	A	192.5.5.241
+g.root-servers.net.	516989	IN	A	192.112.36.4
+h.root-servers.net.	516989	IN	A	198.97.190.53
+i.root-servers.net.	516989	IN	A	192.36.148.17
+j.root-servers.net.	516989	IN	A	192.58.128.30
+k.root-servers.net.	516989	IN	A	193.0.14.129
+l.root-servers.net.	516989	IN	A	199.7.83.42
+m.root-servers.net.	516989	IN	A	202.12.27.33
+a.root-servers.net.	516989	IN	AAAA	2001:503:ba3e::2:30
+b.root-servers.net.	516989	IN	AAAA	2801:1b8:10::b
+c.root-servers.net.	516989	IN	AAAA	2001:500:2::c
+d.root-servers.net.	516989	IN	AAAA	2001:500:2d::d
+e.root-servers.net.	516989	IN	AAAA	2001:500:a8::e
+f.root-servers.net.	516989	IN	AAAA	2001:500:2f::f
+g.root-servers.net.	516989	IN	AAAA	2001:500:12::d0d
+h.root-servers.net.	516989	IN	AAAA	2001:500:1::53
+i.root-servers.net.	516989	IN	AAAA	2001:7fe::53
+j.root-servers.net.	516989	IN	AAAA	2001:503:c27::2:30
+k.root-servers.net.	516989	IN	AAAA	2001:7fd::1
+l.root-servers.net.	516989	IN	AAAA	2001:500:9f::42
+m.root-servers.net.	516989	IN	AAAA	2001:dc3::35
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 851
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search server
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 39256
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 5a9c1108fbf9587b010000006613aa05ad2fba1558d3e9bf (good)
+;; QUESTION SECTION:
+;server.dmz.gsx.			IN	A
+
+;; ANSWER SECTION:
+server.dmz.gsx.		604800	IN	CNAME	ns.dmz.gsx.
+ns.dmz.gsx.		604800	IN	A	198.18.249.254
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 104
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search www
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 56211
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 9a010dc193539ec0010000006613aa0500d82497c6211947 (good)
+;; QUESTION SECTION:
+;www.dmz.gsx.			IN	A
+
+;; ANSWER SECTION:
+www.dmz.gsx.		604800	IN	CNAME	ns.dmz.gsx.
+ns.dmz.gsx.		604800	IN	A	198.18.249.254
+
+;; Query time: 4 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 101
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search router
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 10322
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 3f681b44214f1f11010000006613aa05c36751cadad303a0 (good)
+;; QUESTION SECTION:
+;router.dmz.gsx.			IN	A
+
+;; ANSWER SECTION:
+router.dmz.gsx.		604800	IN	A	198.18.248.1
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 87
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search dhcp
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 14867
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 906f68659ed43208010000006613aa05888a4a17880edabb (good)
+;; QUESTION SECTION:
+;dhcp.intranet.gsx.		IN	A
+
+;; ANSWER SECTION:
+dhcp.intranet.gsx.	604800	IN	A	172.24.248.94
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 90
+
+
+; <<>> DiG 9.16.48-Debian <<>> +recurse tinet.cat
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 3784
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 78395d53f4b64b15010000006613aa056648277c788a686e (good)
+;; QUESTION SECTION:
+;tinet.cat.			IN	A
+
+;; ANSWER SECTION:
+tinet.cat.		84083	IN	A	195.77.216.137
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 82
+
+
+Pruebas de consultas inversas a todas las zonas
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search -x 198.18.249.254
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 58095
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 96c9bc4d58b5472e010000006613aa0543366259ae5fbddd (good)
+;; QUESTION SECTION:
+;254.249.18.198.in-addr.arpa.	IN	PTR
+
+;; ANSWER SECTION:
+254.249.18.198.in-addr.arpa. 604800 IN	PTR	ns.dmz.gsx.
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 108
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search -x 198.18.248.1
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 4553
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: b472170e99c6648e010000006613aa05fd069c5a041e6ff1 (good)
+;; QUESTION SECTION:
+;1.248.18.198.in-addr.arpa.	IN	PTR
+
+;; ANSWER SECTION:
+1.248.18.198.in-addr.arpa. 604800 IN	PTR	router.dmz.gsx.
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 110
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search -x 172.24.248.81
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 46565
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: cc1adedcbe2c483c010000006613aa0501c71b36ab9aa0c1 (good)
+;; QUESTION SECTION:
+;81.248.24.172.in-addr.arpa.	IN	PTR
+
+;; ANSWER SECTION:
+81.248.24.172.in-addr.arpa. 604800 IN	PTR	router.intranet.gsx.
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 116
+
+
+; <<>> DiG 9.16.48-Debian <<>> +search -x 172.24.248.94
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 55268
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 4e7995d892bd6c6e010000006613aa05e12f4a4d8bf68b6c (good)
+;; QUESTION SECTION:
+;94.248.24.172.in-addr.arpa.	IN	PTR
+
+;; ANSWER SECTION:
+94.248.24.172.in-addr.arpa. 604800 IN	PTR	dhcp.intranet.gsx.
+
+;; Query time: 0 msec
+;; SERVER: 198.18.249.254#53(198.18.249.254)
+;; WHEN: Mon Apr 08 08:25:41 UTC 2024
+;; MSG SIZE  rcvd: 114
+
+
+Pruebas de ping de extremo a extremo
+
+PING ns.dmz.gsx (198.18.249.254) 56(84) bytes of data.
+64 bytes from ns.dmz.gsx (198.18.249.254): icmp_seq=1 ttl=64 time=0.037 ms
+
+--- ns.dmz.gsx ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.037/0.037/0.037/0.000 ms
+PING ns.dmz.gsx (198.18.249.254) 56(84) bytes of data.
+64 bytes from ns.dmz.gsx (198.18.249.254): icmp_seq=1 ttl=64 time=0.016 ms
+
+--- ns.dmz.gsx ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.016/0.016/0.016/0.000 ms
+PING ns.dmz.gsx (198.18.249.254) 56(84) bytes of data.
+64 bytes from ns.dmz.gsx (198.18.249.254): icmp_seq=1 ttl=64 time=0.016 ms
+
+--- ns.dmz.gsx ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.016/0.016/0.016/0.000 ms
+PING router.dmz.gsx (198.18.248.1) 56(84) bytes of data.
+64 bytes from router.dmz.gsx (198.18.248.1): icmp_seq=1 ttl=64 time=0.011 ms
+
+--- router.dmz.gsx ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.011/0.011/0.011/0.000 ms
+PING dhcp.intranet.gsx (172.24.248.94) 56(84) bytes of data.
+64 bytes from dhcp.intranet.gsx (172.24.248.94): icmp_seq=1 ttl=64 time=0.032 ms
+
+--- dhcp.intranet.gsx ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.032/0.032/0.032/0.000 ms
+PING google.com (142.250.200.142) 56(84) bytes of data.
+64 bytes from mad41s14-in-f14.1e100.net (142.250.200.142): icmp_seq=1 ttl=115 time=14.7 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 14.692/14.692/14.692/0.000 ms

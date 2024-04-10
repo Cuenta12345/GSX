@@ -1,0 +1,16 @@
+; Archivo de zona inversa para la intranet (172.24.248.80/28)
+
+$TTL 604800
+@ IN SOA ns.dmz.gsx. root.ns.intranet.gsx. (
+        2024032601 ; Serial
+        604800     ; Refresh
+        86400      ; Retry
+        2419200    ; Expire
+        604800 )   ; Negative Cache TTL
+
+; Definir el servidor de nombres para la zona
+@ IN NS ns.dmz.gsx.
+@ IN NS ns.intranet.gsx.
+; Definir registros PTR para las direcciones IP en la intranet
+81.248 IN PTR router.intranet.gsx.
+94.248 IN PTR dhcp.intranet.gsx.
