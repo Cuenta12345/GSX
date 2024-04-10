@@ -10,12 +10,21 @@ if [ $# -eq 2 ]; then
         	telefonos=$(echo "$linea" | awk -F ":" '{print $3}')
         	proyectos=$(echo "$linea" | awk -F ":" '{print $4}')
 
-        	echo -e "\nDNIs: $dnis"
-        	echo -e "\napellidos: $apellidos"
-        	echo -e "\nnombres: $nombres"
-        	echo -e "\ntelefonos: $telefonos"
-        	echo -e "\nproyectos: $proyectos"
-                echo -e "\n----------------------------------------------------------------\n"
+		for proyecto in $(echo "$proyectos" | tr ',' ' '); do
+			if grep -q "^nombre_del_grupo:" /etc/group; then
+				echo "El grupo nombre_del_grupo existe."
+			else
+				echo "El grupo nombre_del_grupo no existe."
+				echo "Creando el grupo $proyecto"
+				groupadd "$proyecto"
+			fi
+		done
+        	#echo -e "\nDNIs: $dnis"
+        	#echo -e "\napellidos: $apellidos"
+        	#echo -e "\nnombres: $nombres"
+	       	#echo -e "\ntelefonos: $telefonos"
+        	#echo -e "\nproyectos: $proyectos"
+                #echo -e "\n----------------------------------------------------------------\n"
 	done
 
 	echo -e "________________________________________________________________________________"
@@ -25,10 +34,10 @@ if [ $# -eq 2 ]; then
                 jefes=$(echo "$linea" | awk -F ":" '{print $2}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
                 descripciones=$(echo "$linea" | awk -F ":" '{print $3}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
 
-	        echo -e "\nNombres de proyectos: $proyectos"
-       		echo -e "\nJefes de proyectos: $jefes"
-        	echo -e "\nDescripciones de proyectos: $descripciones"
-		echo -e "\n----------------------------------------------------------------\n"
+	        #echo -e "\nNombres de proyectos: $proyectos"
+       		#echo -e "\nJefes de proyectos: $jefes"
+        	#echo -e "\nDescripciones de proyectos: $descripciones"
+		#echo -e "\n----------------------------------------------------------------\n"
 	done
 	proyectos=$(cat fitxer_prova_projectes | tail -n +2 | awk -F ":" '{print $1}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
 	caps=$(cat fitxer_prova_projectes | tail -n +2 | awk -F ":" '{print $2}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
