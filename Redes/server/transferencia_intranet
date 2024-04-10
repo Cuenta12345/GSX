@@ -1,0 +1,20 @@
+
+; <<>> DiG 9.16.48-Debian <<>> intranet.gsx AXFR
+;; global options: +cmd
+intranet.gsx.		604800	IN	SOA	ns.intranet.gsx. root.ns.intranet.gsx. 2024032621 604800 86400 2419200 604800
+intranet.gsx.		604800	IN	NS	ns.intranet.gsx.
+client-82.intranet.gsx.	3600	IN	TXT	"31537cf8facbfe50afcc9991cd492e4b55"
+client-82.intranet.gsx.	3600	IN	A	172.24.248.82
+client-83.intranet.gsx.	3600	IN	TXT	"313baf6b66ebc5769e2082b844bfba29df"
+client-83.intranet.gsx.	3600	IN	A	172.24.248.83
+dhcp.intranet.gsx.	604800	IN	A	172.24.248.94
+ns.intranet.gsx.	604800	IN	A	198.18.249.254
+router.intranet.gsx.	604800	IN	A	172.24.248.81
+server.intranet.gsx.	604800	IN	CNAME	ns.intranet.gsx.
+www.intranet.gsx.	604800	IN	CNAME	ns.intranet.gsx.
+intranet.gsx.		604800	IN	SOA	ns.intranet.gsx. root.ns.intranet.gsx. 2024032621 604800 86400 2419200 604800
+;; Query time: 8 msec
+;; SERVER: 127.0.0.1#53(127.0.0.1)
+;; WHEN: Mon Apr 08 08:22:27 UTC 2024
+;; XFR size: 12 records (messages 1, bytes 408)
+

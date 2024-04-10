@@ -1,0 +1,59 @@
+acl "contenedores_acl" {
+        198.18.248.0/23;
+	172.24.248.80/28;
+	localhost;
+};
+
+key "CLAU_DHCPDNS" {
+        algorithm hmac-md5;
+        secret "i3RmSIWU3VqB+4DVwIxZYg==";
+};
+
+logging {
+	category update { update_debug; };
+	channel update_debug {
+	        file "/var/log/bind/update_debug.log";
+		severity debug 1;
+                print-category yes;
+                print-severity yes;
+                print-time yes;
+         };
+};
+
+options {
+	directory "/var/cache/bind";
+	
+	// Desactivar la validación DNSSEC
+        dnssec-validation no;
+
+	recursion yes;	
+
+	allow-recursion { contenedores_acl; };
+
+	allow-transfer { localhost; 198.18.249.254; };
+
+	auth-nxdomain no;
+
+	// If there is a firewall between you and nameservers you want
+	// to talk to, you may need to fix the firewall to allow multiple
+	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+	// If your ISP provided one or more IP addresses for stable 
+	// nameservers, you probably want to use them as forwarders.  
+	// Uncomment the following block, and insert the addresses replacing 
+	// the all-0's placeholder.
+
+	forwarders {
+		80.58.61.250;
+		80.58.61.254;
+		10.0.2.17;
+	 };
+
+	//========================================================================
+	// If BIND logs error messages about the root key being expired,
+	// you will need to update your keys.  See https://www.isc.org/bind-keys
+	//========================================================================
+	//dnssec-validation auto;
+
+	listen-on-v6 { none; };
+};

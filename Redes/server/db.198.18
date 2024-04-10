@@ -1,0 +1,16 @@
+; Archivo de zona inversa para la DMZ (198.18.248.0/23)
+
+$TTL 604800
+@ IN SOA ns.dmz.gsx. root.ns.dmz.gsx. (
+        2024032601 ; Serial
+        604800     ; Refresh
+        86400      ; Retry
+        2419200    ; Expire
+        604800 )   ; Negative Cache TTL
+
+; Definir el servidor de nombres para la zona
+@ IN NS ns.dmz.gsx.
+
+; Definir registros PTR para las direcciones IP en la DMZ
+1.248 IN PTR router.dmz.gsx.
+254.249 IN PTR ns.dmz.gsx.
