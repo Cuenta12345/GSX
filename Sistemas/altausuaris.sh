@@ -15,13 +15,23 @@ if [ $# -eq 2 ]; then
         	nombres=$(echo "$linea" | awk -F ":" '{print $2}' | awk -F "," '{sub(/^ */, "", $2); print $2}')
         	telefonos=$(echo "$linea" | awk -F ":" '{print $3}')
         	proyectos=$(echo "$linea" | awk -F ":" '{print $4}')
+		
+		apellido_aux=$(echo "$apellidos" | sed 's/ /_/g')
 
-		echo "Creando un nuevo usuario"
+		if id "$apellidos_aux" >/dev/null 2>&1; then
+    			echo "El usuario $apellidos ya existe."
+		else
+    			echo "El usuario $nombres $apellidos no existe. Creando..."
+    			echo "$apellido_aux"
+    			sudo adduser --disabled-password --gecos "" "$apellido_aux"
+    			echo "$apellido_aux:$dnis" | sudo chpasswd
+    			echo "El usuario $apellido_aux ha sido creado."
+		fi
 
 		for proyecto in $(echo "$proyectos" | tr ',' ' '); do
 			if ! grep -q "^nombre_del_grupo:" /etc/group; then
-				echo "El grupo nombre_del_grupo no existe."
-				echo "Creando el grupo $proyecto"
+				#echo "El grupo nombre_del_grupo no existe."
+				#echo "Creando el grupo $proyecto"
 				groupadd "$proyecto"
 			fi
 			 
