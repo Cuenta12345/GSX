@@ -1,5 +1,5 @@
 #! /bin/bash
-
+#Comentario de prueba
 
 if [ "$EUID" -ne 0 ]; then
 	echo "Este script requiere privilegios de superusuario para ejecutarse."
