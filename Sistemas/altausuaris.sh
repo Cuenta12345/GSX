@@ -1,5 +1,11 @@
 #! /bin/bash
 
+
+if [ "$EUID" -ne 0 ]; then
+	echo "Este script requiere privilegios de superusuario para ejecutarse."
+	exit 1
+fi
+
 if [ $# -eq 2 ]; then 
 	echo -e "Se han recibido los ficheros\n"
 	echo -e "Recuperación de datos de usuarios del fichero [fitxer_prova_usuaris]"
@@ -10,14 +16,15 @@ if [ $# -eq 2 ]; then
         	telefonos=$(echo "$linea" | awk -F ":" '{print $3}')
         	proyectos=$(echo "$linea" | awk -F ":" '{print $4}')
 
+		echo "Creando un nuevo usuario"
+
 		for proyecto in $(echo "$proyectos" | tr ',' ' '); do
-			if grep -q "^nombre_del_grupo:" /etc/group; then
-				echo "El grupo nombre_del_grupo existe."
-			else
+			if ! grep -q "^nombre_del_grupo:" /etc/group; then
 				echo "El grupo nombre_del_grupo no existe."
 				echo "Creando el grupo $proyecto"
 				groupadd "$proyecto"
 			fi
+			 
 		done
         	#echo -e "\nDNIs: $dnis"
         	#echo -e "\napellidos: $apellidos"
