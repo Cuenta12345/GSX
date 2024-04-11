@@ -1,13 +1,26 @@
 #! /bin/bash
-#Comentario de prueba
+#Primero se crean los directorios necesarios para tenerlos preparados
+
+mkdir -p /empresa/usuaris /empresa/projectes /empresa/bin 
+
+#Ahora se comprueba que se sea un usuario privilegiado para ejecutar el script
+
 
 if [ "$EUID" -ne 0 ]; then
 	echo "Este script requiere privilegios de superusuario para ejecutarse."
 	exit 1
 fi
 
+#Se comprueba que se hayan pasado dos ficheros
+
 if [ $# -eq 2 ]; then 
 	echo -e "Se han recibido los ficheros\n"
+
+	#Se realiza lo sigueinte:
+	#-Se recupera y crean los usuarios
+	#-Se crean los grupos
+	#-Se introducen los usuarios en los respectivos grupos
+	
 	echo -e "Recuperación de datos de usuarios del fichero [fitxer_prova_usuaris]"
 	tail -n +2 "$1" | while IFS= read -r linea; do
     		dnis=$(echo "$linea" | awk -F ":" '{print $1}')
@@ -16,25 +29,24 @@ if [ $# -eq 2 ]; then
         	telefonos=$(echo "$linea" | awk -F ":" '{print $3}')
         	proyectos=$(echo "$linea" | awk -F ":" '{print $4}')
 		
-		apellido_aux=$(echo "$apellidos" | sed 's/ /_/g')
+		#Se prepara el nombre del usuario como nombre + Iniciales del los apellidos
 
-		if id "$apellidos_aux" >/dev/null 2>&1; then
-    			echo "El usuario $apellidos ya existe."
-		else
-    			echo "El usuario $nombres $apellidos no existe. Creando..."
-    			echo "$apellido_aux"
-    			sudo adduser --disabled-password --gecos "" "$apellido_aux"
-    			echo "$apellido_aux:$dnis" | sudo chpasswd
-    			echo "El usuario $apellido_aux ha sido creado."
+		iniciales=$(echo "$apellidos" | awk -F " " '{for (i=1; i<=NF; i++) printf substr($i,1,1)}' | tr '[:lower:]' '[:upper:]')
+		nombre_aux=$(echo "$nombres" | tr -d ' ')
+		usuario=$(echo "${nombre_aux}${iniciales}")
+
+		if  ! id "$usuario" ; then
+			echo "[Creandolo]"
+			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N "$usuario"
 		fi
+		passwd -d "$usuario"
+                chpasswd <<< "$usuario:$dnis"
 
 		for proyecto in $(echo "$proyectos" | tr ',' ' '); do
 			if ! grep -q "^nombre_del_grupo:" /etc/group; then
-				#echo "El grupo nombre_del_grupo no existe."
-				#echo "Creando el grupo $proyecto"
 				groupadd "$proyecto"
 			fi
-			 
+			usermod -aG $proyecto $usuario 
 		done
         	#echo -e "\nDNIs: $dnis"
         	#echo -e "\napellidos: $apellidos"
