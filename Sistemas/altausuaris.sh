@@ -34,26 +34,32 @@ if [ $# -eq 2 ]; then
 		iniciales=$(echo "$apellidos" | awk -F " " '{for (i=1; i<=NF; i++) printf substr($i,1,1)}' | tr '[:lower:]' '[:upper:]')
 		nombre_aux=$(echo "$nombres" | tr -d ' ')
 		usuario=$(echo "${nombre_aux}${iniciales}")
-
-		if  ! id "$usuario" ; then
+		
+		#Primeros preparamos los grupos
+	
+		if  ! id "$usuario" &>/dev/null; then
+			echo "El usuaio $usuario no existe"
 			echo "[Creandolo]"
-			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N "$usuario"
+			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N -p $dnis "$usuario" 2>/dev/null
 		fi
-		passwd -d "$usuario"
-                chpasswd <<< "$usuario:$dnis"
+		passwd -d "$usuario" &>/dev/null
+                chpasswd <<< "$usuario:$dnis" &>/dev/null
 
-		for proyecto in $(echo "$proyectos" | tr ',' ' '); do
-			if ! grep -q "^nombre_del_grupo:" /etc/group; then
-				groupadd "$proyecto"
-			fi
-			usermod -aG $proyecto $usuario 
-		done
+                for proyecto in $(echo "$proyectos" | tr ',' ' '); do
+                        if ! grep -q "$proyecto" /etc/group 2>/dev/null; then
+                                groupadd "$proyecto"
+                        fi
+                        usermod -aG $proyecto $usuario 
+                done
+
+
         	#echo -e "\nDNIs: $dnis"
         	#echo -e "\napellidos: $apellidos"
         	#echo -e "\nnombres: $nombres"
 	       	#echo -e "\ntelefonos: $telefonos"
         	#echo -e "\nproyectos: $proyectos"
                 #echo -e "\n----------------------------------------------------------------\n"
+		id $usuario
 	done
 
 	echo -e "________________________________________________________________________________"
@@ -79,3 +85,5 @@ if [ $# -eq 2 ]; then
 else
 	echo "No se ha recibido nada"
 fi
+
+
