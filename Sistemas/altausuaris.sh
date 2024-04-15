@@ -1,5 +1,4 @@
 #! /bin/bash
-#Prueba
 #Primero se crean los directorios necesarios para tenerlos preparados
 
 mkdir -p /empresa/usuaris /empresa/projectes /empresa/bin
