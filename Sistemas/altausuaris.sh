@@ -47,6 +47,7 @@ if [ $# -eq 2 ]; then
 			echo "El usuaio $usuario no existe"
 			echo "[Creandolo]"
 			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N -p $dnis "$usuario" 2>/dev/null
+			mkdir -p /empresa/usuaris/$usuario/bin
 		fi
 		passwd -d "$usuario" &>/dev/null
                 chpasswd <<< "$usuario:$dnis" &>/dev/null
