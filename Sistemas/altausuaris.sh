@@ -84,23 +84,21 @@ if [ $# -eq 2 ]; then
 								echo "jefe: $DNIjefe | Propietario: $propietario"
 	done
 
-
+	NUEVO_PATH1="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/empresa/bin"
+	NUEVO_PATH2="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/empresa/bin"
 	if [ -f /etc/profile.d/modifications.sh ]; then
 		touch /etc/profile.d/modifications.sh
 	fi
 	#Modificar path de los usuarios
-	NUEVO_PATH1="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/empresa/bin"
-	NUEVO_PATH2="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/empresa/bin"
 	cp /etc/profile /tmp
 	echo '#!/bin/bash' > /etc/profile.d/modifications.sh
 	echo 'if [ "$(id -u)" -eq 0 ]; then' >> /etc/profile.d/modifications.sh
 	echo "PATH=\"$NUEVO_PATH1\"" >> /etc/profile.d/modifications.sh
 	echo 'else' >> /etc/profile.d/modifications.sh
-	echo "PATH=\"$NUEVO_PATH2\"" >> /etc/profile.d/modifications.sh
+	echo "PATH=\"\$HOME/bin:$NUEVO_PATH2\"" >> /etc/profile.d/modifications.sh
 	echo 'fi' >> /etc/profile.d/modifications.sh
 	echo 'export PATH' >> /etc/profile.d/modifications.sh
 	echo 'umask 1007' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
-
 	#No se puede poner los permisos de ejecución, asi que estos los deberan poner los propios usuarios cuando esten dentro del sistema y permitir quienes pueden o no ejecutar sus scripts
 
 
