@@ -3,6 +3,12 @@
 
 mkdir -p /empresa/usuaris /empresa/projectes /empresa/bin
 
+#Modificaciones de permisos
+chmod 1775 /empresa/bin
+chmod 1770 /empresa/projectes
+chown :users /empresa/bin
+chown :users /empresa
+chown :users /empresa/projectes
 #Ahora se comprueba que se sea un usuario privilegiado para ejecutar el script
 
 
@@ -58,6 +64,8 @@ if [ $# -eq 2 ]; then
 	done
 
 	echo -e "________________________________________________________________________________"
+
+	#Recuperacion de proyectos
 	echo -e "Recuperación de datos de proyectos del fichero [fitxer_prova_projectes]"
         tail -n +2 "$2" | while IFS= read -r linea; do
 								proyecto=$(echo "$linea" | awk -F ":" '{print $1}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
@@ -76,7 +84,7 @@ if [ $# -eq 2 ]; then
 								echo "jefe: $DNIjefe | Propietario: $propietario"
 	done
 
-	chmod 1775 /empresa/bin
+
 	if [ -f /etc/profile.d/modifications.sh ]; then
 		touch /etc/profile.d/modifications.sh
 	fi
@@ -91,7 +99,9 @@ if [ $# -eq 2 ]; then
 	echo "PATH=\"$NUEVO_PATH2\"" >> /etc/profile.d/modifications.sh
 	echo 'fi' >> /etc/profile.d/modifications.sh
 	echo 'export PATH' >> /etc/profile.d/modifications.sh
-	echo 'umask 1007' >> /etc/profile.d/modifications.sh
+	echo 'umask 1007' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
+
+	#No se puede poner los permisos de ejecución, asi que estos los deberan poner los propios usuarios cuando esten dentro del sistema y permitir quienes pueden o no ejecutar sus scripts
 
 
 else
