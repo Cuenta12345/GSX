@@ -72,13 +72,26 @@ if [ $# -eq 2 ]; then
 			        	nombres=$(cat fitxer_prova_usuaris | grep "$DNIjefe" | awk -F ":" '{print $2}' | awk -F "," '{sub(/^ */, "", $2); print $2}' | tr -d ' ')
 								propietario=$(echo "${nombres}${apellidos}")
 								chown $propietario:$proyecto /empresa/projectes/$proyecto
-								chmod 2770 /empresa/projectes/$proyecto
-								chmod g+s /empresa/projectes/$proyecto
-								echo "umask 0002" >> /etc/profile.d/$proyecto.sh
+								chmod 1770 /empresa/projectes/$proyecto
 								echo "jefe: $DNIjefe | Propietario: $propietario"
 	done
 
 	chmod 1775 /empresa/bin
+	if [ -f /etc/profile.d/modifications.sh ]; then
+		touch /etc/profile.d/modifications.sh
+	fi
+	#Modificar path de los usuarios
+	NUEVO_PATH1="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/empresa/bin"
+	NUEVO_PATH2="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/empresa/bin"
+	cp /etc/profile /tmp
+	echo '#!/bin/bash' > /etc/profile.d/modifications.sh
+	echo 'if [ "$(id -u)" -eq 0 ]; then' >> /etc/profile.d/modifications.sh
+	echo "PATH=\"$NUEVO_PATH1\"" >> /etc/profile.d/modifications.sh
+	echo 'else' >> /etc/profile.d/modifications.sh
+	echo "PATH=\"$NUEVO_PATH2\"" >> /etc/profile.d/modifications.sh
+	echo 'fi' >> /etc/profile.d/modifications.sh
+	echo 'export PATH' >> /etc/profile.d/modifications.sh
+	echo 'umask 1007' >> /etc/profile.d/modifications.sh
 
 
 else
