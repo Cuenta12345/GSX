@@ -4,11 +4,14 @@
 mkdir -p /empresa/usuaris /empresa/projectes /empresa/bin
 
 #Modificaciones de permisos
-chmod 1775 /empresa/bin
+chmod 1750 /empresa/bin
 chmod 1770 /empresa/projectes
-chown :users /empresa/bin
+
+#Modifcamos porpietarios
 chown :users /empresa
+chown :users /empresa/bin
 chown :users /empresa/projectes
+
 #Ahora se comprueba que se sea un usuario privilegiado para ejecutar el script
 
 
@@ -29,7 +32,8 @@ if [ $# -eq 2 ]; then
 
 	echo -e "Recuperación de datos de usuarios del fichero [fitxer_prova_usuaris]"
 	tail -n +2 "$1" | while IFS= read -r linea; do
-    		dnis=$(echo "$linea" | awk -F ":" '{print $1}')
+		#Se recogen datos
+    			dnis=$(echo "$linea" | awk -F ":" '{print $1}')
 	        apellidos=$(echo "$linea" | awk -F ":" '{print $2}' | awk -F "," '{print $1}')
         	nombres=$(echo "$linea" | awk -F ":" '{print $2}' | awk -F "," '{sub(/^ */, "", $2); print $2}')
         	telefonos=$(echo "$linea" | awk -F ":" '{print $3}')
@@ -41,26 +45,31 @@ if [ $# -eq 2 ]; then
 		nombre_aux=$(echo "$nombres" | tr -d ' ')
 		usuario=$(echo "${nombre_aux}${iniciales}")
 
-		#Primeros preparamos los grupos
+		#Primeros preparamos los usuarios y sus directorios
 
 		if  ! id "$usuario" &>/dev/null; then
 			echo "El usuaio $usuario no existe"
 			echo "[Creandolo]"
 			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N -p $dnis "$usuario" 2>/dev/null
 			mkdir -p /empresa/usuaris/$usuario/bin
+			chmod 1750 /empresa/usuaris/$usuario
+			chmod 1600 /empresa/usuaris/$usuario/bin
+			chown $usuario: /empresa/usuaris/$usuario/bin
 		fi
+
+		#Se cambian contraseñas
 		passwd -d "$usuario" &>/dev/null
-                chpasswd <<< "$usuario:$dnis" &>/dev/null
+    chpasswd <<< "$usuario:$dnis" &>/dev/null
 
-                for proyecto in $(echo "$proyectos" | tr ',' ' '); do
-                        if ! grep -q "$proyecto" /etc/group 2>/dev/null; then
-                                groupadd "$proyecto"
-                        fi
-                        usermod -aG $proyecto $usuario
-                done
+		#Se crean grupos y se añaden los usuarios a los grupos
+    for proyecto in $(echo "$proyectos" | tr ',' ' '); do
+    	if ! grep -q "$proyecto" /etc/group 2>/dev/null; then
+          groupadd "$proyecto"
+			fi
+      usermod -aG $proyecto $usuario
+    done
 
-
-        	echo -e "\nDNIs: $dnis"
+    echo -e "\nDNIs: $dnis"
 		id $usuario
 	done
 
@@ -72,6 +81,7 @@ if [ $# -eq 2 ]; then
 								proyecto=$(echo "$linea" | awk -F ":" '{print $1}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
                 DNIjefe=$(echo "$linea" | awk -F ":" '{print $2}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
                 descripcione=$(echo "$linea" | awk -F ":" '{print $3}' | awk -F "," '{sub(/^ */, "", $1); print $1}')
+
 								#Crear direcotrios
 								echo "Creando directorios para el proyecto: $proyecto"
 								mkdir -p /empresa/projectes/$proyecto
@@ -85,12 +95,16 @@ if [ $# -eq 2 ]; then
 								echo "jefe: $DNIjefe | Propietario: $propietario"
 	done
 
+	#Se crean los nuevos PATH
 	NUEVO_PATH1="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/empresa/bin"
 	NUEVO_PATH2="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/empresa/bin"
+
+	#Se crea un nuevo fichero para que se ejecute al inciar sesión
 	if [ -f /etc/profile.d/modifications.sh ]; then
 		touch /etc/profile.d/modifications.sh
 	fi
-	#Modificar path de los usuarios
+
+	#Modificar path de los usuarios en el nuevo script
 	cp /etc/profile /tmp
 	echo '#!/bin/bash' > /etc/profile.d/modifications.sh
 	echo 'if [ "$(id -u)" -eq 0 ]; then' >> /etc/profile.d/modifications.sh
