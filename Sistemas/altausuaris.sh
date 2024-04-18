@@ -1,20 +1,7 @@
 #! /bin/bash
 #Primero se crean los directorios necesarios para tenerlos preparados
 
-mkdir -p /empresa/usuaris /empresa/projectes /empresa/bin
-
-#Modificaciones de permisos
-chmod 1750 /empresa/bin
-chmod 1770 /empresa/projectes
-
-#Modifcamos porpietarios
-chown :users /empresa
-chown :users /empresa/bin
-chown :users /empresa/projectes
-
 #Ahora se comprueba que se sea un usuario privilegiado para ejecutar el script
-
-
 if [ "$EUID" -ne 0 ]; then
 	echo "Este script requiere privilegios de superusuario para ejecutarse."
 	exit 1
@@ -24,6 +11,18 @@ fi
 
 if [ $# -eq 2 ]; then
 	echo -e "Se han recibido los ficheros\n"
+
+	#Primero se crean los directorios necesarios para tenerlos preparados
+	mkdir -p /empresa/usuaris /empresa/projectes /empresa/bin
+
+	#Modificaciones de permisos
+	chmod 1777 /empresa/bin
+	chmod 1770 /empresa/projectes
+
+	#Modifcamos porpietarios
+	chown :users /empresa
+	chown :users /empresa/bin
+	chown :users /empresa/projectes
 
 	#Se realiza lo sigueinte:
 	#-Se recupera y crean los usuarios
@@ -40,21 +39,22 @@ if [ $# -eq 2 ]; then
         	proyectos=$(echo "$linea" | awk -F ":" '{print $4}')
 
 		#Se prepara el nombre del usuario como nombre + Iniciales del los apellidos
-
-		iniciales=$(echo "$apellidos" | awk -F " " '{for (i=1; i<=NF; i++) printf substr($i,1,1)}' | tr '[:lower:]' '[:upper:]')
-		nombre_aux=$(echo "$nombres" | tr -d ' ')
-		usuario=$(echo "${nombre_aux}${iniciales}")
+			iniciales=$(echo "$apellidos" | awk -F " " '{for (i=1; i<=NF; i++) printf substr($i,1,1)}' | tr '[:lower:]' '[:upper:]')
+			nombre_aux=$(echo "$nombres" | tr -d ' ')
+			usuario=$(echo "${nombre_aux}${iniciales}")
 
 		#Primeros preparamos los usuarios y sus directorios
 
 		if  ! id "$usuario" &>/dev/null; then
 			echo "El usuaio $usuario no existe"
 			echo "[Creandolo]"
-			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N -p $dnis "$usuario" 2>/dev/null
+			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N -p $dnis "$usuario" -c "$dnis, $tel" 2>/dev/null
+			chmod 1700 /empresa/usuaris/$usuario
+
 			mkdir -p /empresa/usuaris/$usuario/bin
-			chmod 1750 /empresa/usuaris/$usuario
-			chmod 1600 /empresa/usuaris/$usuario/bin
-			chown $usuario: /empresa/usuaris/$usuario/bin
+			chown $usuario:users /empresa/usuaris/$usuario/bin
+			chmod 1700 /empresa/usuaris/$usuario/bin
+
 		fi
 
 		#Se cambian contraseñas
@@ -114,10 +114,13 @@ if [ $# -eq 2 ]; then
 	echo "PATH=\"\$HOME/bin:$NUEVO_PATH2\"" >> /etc/profile.d/modifications.sh
 	echo 'fi' >> /etc/profile.d/modifications.sh
 	echo 'export PATH' >> /etc/profile.d/modifications.sh
-	echo 'umask 1007' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
+	echo 'umask 1077' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
 	#No se puede poner los permisos de ejecución, asi que estos los deberan poner los propios usuarios cuando esten dentro del sistema y permitir quienes pueden o no ejecutar sus scripts
 
 
+
+	#Copiamos el archivo de treballproj.sh a su sitio en /empresa/bin
+	cp ./treballproj.sh /empresa/bin
 else
 	echo "No se ha recibido nada"
 fi

@@ -10,6 +10,7 @@ fi
 actual_dir=$(pwd)
 new_directorio="/empresa/projectes/$1"
 old_umask=$(umask)
-id
-newgrp - $1
-id
+cd /empresa/projectes/$1
+umask 007
+newgrp $1
+exit 0
