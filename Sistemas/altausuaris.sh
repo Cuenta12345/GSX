@@ -65,6 +65,7 @@ if [ $# -eq 2 ]; then
     for proyecto in $(echo "$proyectos" | tr ',' ' '); do
     	if ! grep -q "$proyecto" /etc/group 2>/dev/null; then
           groupadd "$proyecto"
+					gpasswd -r "$proyecto"
 			fi
       usermod -aG $proyecto $usuario
     done
