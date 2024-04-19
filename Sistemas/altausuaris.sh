@@ -117,11 +117,10 @@ if [ $# -eq 2 ]; then
 	echo 'umask 1077' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
 	#No se puede poner los permisos de ejecución, asi que estos los deberan poner los propios usuarios cuando esten dentro del sistema y permitir quienes pueden o no ejecutar sus scripts
 
-
-
 	#Copiamos el archivo de treballproj.sh a su sitio en /empresa/bin
 	chmod 755 treballproj.sh
 	cp ./treballproj.sh /empresa/bin
+
 else
 	echo "No se ha recibido nada"
 fi
