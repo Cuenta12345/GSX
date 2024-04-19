@@ -120,6 +120,7 @@ if [ $# -eq 2 ]; then
 
 
 	#Copiamos el archivo de treballproj.sh a su sitio en /empresa/bin
+	chmod 755 treballproj.sh
 	cp ./treballproj.sh /empresa/bin
 else
 	echo "No se ha recibido nada"
