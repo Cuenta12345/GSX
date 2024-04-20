@@ -115,6 +115,10 @@ if [ $# -eq 2 ]; then
 	echo 'fi' >> /etc/profile.d/modifications.sh
 	echo 'export PATH' >> /etc/profile.d/modifications.sh
 	echo 'umask 1077' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
+	echo 'if [ ! -d "$HOME/tmp" ]; then' >> /etc/profile.d/modifications.sh
+	echo 'mkdir -p "$HOME/tmp"' >> /etc/profile.d/modifications.sh
+	echo 'mount -t tmpfs -o size=100M,mode=0700,uid=$USER,gid=users tmpfs "/empresaDisk$HOME/tmp"' >> /etc/profile.d/modifications.sh
+	echo 'fi' >> /etc/profile.d/modifications.sh
 	#No se puede poner los permisos de ejecución, asi que estos los deberan poner los propios usuarios cuando esten dentro del sistema y permitir quienes pueden o no ejecutar sus scripts
 
 	#Copiamos el archivo de treballproj.sh a su sitio en /empresa/bin
