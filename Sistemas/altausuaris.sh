@@ -32,7 +32,7 @@ if [ $# -eq 2 ]; then
 	echo -e "Recuperación de datos de usuarios del fichero [fitxer_prova_usuaris]"
 	tail -n +2 "$1" | while IFS= read -r linea; do
 		#Se recogen datos
-    			dnis=$(echo "$linea" | awk -F ":" '{print $1}')
+    		dnis=$(echo "$linea" | awk -F ":" '{print $1}')
 	        apellidos=$(echo "$linea" | awk -F ":" '{print $2}' | awk -F "," '{print $1}')
         	nombres=$(echo "$linea" | awk -F ":" '{print $2}' | awk -F "," '{sub(/^ */, "", $2); print $2}')
         	telefonos=$(echo "$linea" | awk -F ":" '{print $3}')
@@ -44,22 +44,24 @@ if [ $# -eq 2 ]; then
 			usuario=$(echo "${nombre_aux}${iniciales}")
 
 		#Primeros preparamos los usuarios y sus directorios
+		usuario_base="$usuario"
+		numero=1
+		while id "$usuario" &>/dev/null; do
+			usuario="${usuario_base}${numero}"
+			((numero++))
+		done
 
-		if  ! id "$usuario" &>/dev/null; then
-			echo "El usuaio $usuario no existe"
-			echo "[Creandolo]"
-			useradd -m -d /empresa/usuaris/$usuario -s /bin/bash -N -p $dnis "$usuario" -c "$dnis, $tel" 2>/dev/null
-			chmod 1700 /empresa/usuaris/$usuario
+		echo "El usuario $usuario no existe"
+		echo "[Creándolo]"
+		useradd -m -d "/empresa/usuaris/$usuario" -s /bin/bash -N -p "$dnis" "$usuario" -c "$dnis, $tel" 2>/dev/null
+		chmod 1700 "/empresa/usuaris/$usuario"
 
-			mkdir -p /empresa/usuaris/$usuario/bin
-			chown $usuario:users /empresa/usuaris/$usuario/bin
-			chmod 1700 /empresa/usuaris/$usuario/bin
-
-		fi
-
+		mkdir -p "/empresa/usuaris/$usuario/bin"
+		chown "$usuario:users" "/empresa/usuaris/$usuario/bin"
+		chmod 1700 "/empresa/usuaris/$usuario/bin"
 		#Se cambian contraseñas
 		passwd -d "$usuario" &>/dev/null
-    chpasswd <<< "$usuario:$dnis" &>/dev/null
+    	chpasswd <<< "$usuario:$dnis" &>/dev/null
 
 		#Se crean grupos y se añaden los usuarios a los grupos
     for proyecto in $(echo "$proyectos" | tr ',' ' '); do
@@ -114,11 +116,15 @@ if [ $# -eq 2 ]; then
 	echo "PATH=\"\$HOME/bin:$NUEVO_PATH2\"" >> /etc/profile.d/modifications.sh
 	echo 'fi' >> /etc/profile.d/modifications.sh
 	echo 'export PATH' >> /etc/profile.d/modifications.sh
-	echo 'umask 1077' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
-	echo 'if [ ! -d "$HOME/tmp" ]; then' >> /etc/profile.d/modifications.sh
-	echo 'mkdir -p "$HOME/tmp"' >> /etc/profile.d/modifications.sh
-	echo 'mount -t tmpfs -o size=100M,mode=0700,uid=$USER,gid=users tmpfs "/empresaDisk$HOME/tmp"' >> /etc/profile.d/modifications.sh
-	echo 'fi' >> /etc/profile.d/modifications.sh
+	echo 'umask 027' >> /etc/profile.d/modifications.sh #Cuando alguien se loggea se ignora el sticky bit
+	echo 'mkdir $HOME/tmp' >> /etc/profile.d/modifications.sh
+
+	#echo 'if [ ! -d "$HOME/tmp" ]; then' >> /etc/profile.d/modifications.sh
+	#echo 'mkdir -p "$HOME/tmp"' >> /etc/profile.d/modifications.sh
+	echo 'mount -t tmpfs -o size=100M,mode=0700,uid=$USER,gid=users tmpfs "$HOME/tmp"' >> /etc/profile.d/modifications.sh
+	#echo 'fi' >> /etc/profile.d/modifications.sh
+
+
 	#No se puede poner los permisos de ejecución, asi que estos los deberan poner los propios usuarios cuando esten dentro del sistema y permitir quienes pueden o no ejecutar sus scripts
 
 	#Copiamos el archivo de treballproj.sh a su sitio en /empresa/bin
