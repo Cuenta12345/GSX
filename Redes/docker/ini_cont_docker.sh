@@ -24,33 +24,38 @@ if ! docker images | grep 'prac3' ; then
     fi    
 
     echo -e "Creando contenedores de para el entorno...\n"
-    contenedores=('Router' 'Sever' 'DHCP' 'Client1' 'Client2')
-    contenedoresAux=('router' 'sever' 'dgcp' 'client1' 'client2')
+    contenedores=('Router' 'Server' 'DHCP' 'Client1' 'Client2')
+    contenedoresAux=('router' 'server' 'dgcp' 'client1' 'client2')
     
     echo -e "Contenedores a crear\n"
     for contenedor in "${contenedores[@]}"; do
         echo "$contenedor\n"
     done
 
-    OPCIONS="-it --rm --cap-add=NET_ADMIN --cap-add=SYS_ADMIN"
     imatge="gsx:prac3"
 
 
-    for contenedor in "${contenedores[@]}"; do
-
+    for ((i=0; i<${#contenedores[@]}; i++)); do
+        contenedor="${contenedores[i]}"
+        contenedorAux="${contenedoresAux[i]}"
+        
         if ! docker container ls -a | grep "$contenedor"; then
-            if [ $contenedor == 'Router' ]; then
-                docker run -itd --rm --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedoresAux" --network=ISP --name "$contenedor" $imatge
+            if [ "$contenedor" == 'Router' ]; then
+                docker run -itd --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=ISP --name "$contenedor" $imatge
                 docker network connect DMZ Router
                 docker network connect INTRANET Router
             else
-                docker run $OPCIONS --hostname "$contenedoresAux" --network=ISP --name "$contenedor" $imatge
-                if [ $contenedor == 'Server' ]; then 
+                if [ "$contenedor" == 'Server' ]; then 
+                    docker run -itd --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=DMZ --name "$contenedor" $imatge
                     docker network connect DMZ "$contenedor" 
                 else
+                    docker run -itd --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=INTRANET --name "$contenedor" $imatge
                     docker network connect INTRANET "$contenedor" 
                 fi
             fi
         fi
     done
+
+    echo -e "Contenedores activos\:"
+    docker container ls
 fi
