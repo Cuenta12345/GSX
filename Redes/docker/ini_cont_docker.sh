@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Verificar si la imagen 'prac3' no existe
-if ! docker images | grep 'prac3' ; then
-    read -p "No existe la imagen para la práctica 3. ¿Desea crearla? [y/n]: " decision
+if ! docker images | grep 'prac5' ; then
+    read -p "No existe la imagen para la práctica 5. ¿Desea crearla? [y/n]: " decision
     if [ "$decision" == 'y' ]; then
         # Coloca aquí el código para crear la imagen 'prac3'
-        echo "Creando la imagen para la práctica 3..."
-        docker build -t gsx:prac3 -f /home/milax/GSX/Redes/docker/dockerfile_gsx_prac3 .
+        echo "Creando la imagen para la práctica 5..."
+        docker build -t gsx:prac3 -f /home/milax/GSX/Redes/docker/dockerfile_gsx_prac5 .
     else
         echo "Saliendo del programa..."
         exit 0
@@ -41,15 +41,15 @@ if ! docker images | grep 'prac3' ; then
         
         if ! docker container ls -a | grep "$contenedor"; then
             if [ "$contenedor" == 'Router' ]; then
-                docker run -itd --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=ISP --name "$contenedor" $imatge
+                docker run -itd --cap-add=NET_ADMIN type=bind,ro --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=ISP --name "$contenedor" $imatge
                 docker network connect DMZ Router
                 docker network connect INTRANET Router
             else
                 if [ "$contenedor" == 'Server' ]; then 
-                    docker run -itd --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=DMZ --name "$contenedor" $imatge
+                    docker run -itd --privileged --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --mount type=bind,src=./practica5,dst=/root/prac5 --hostname "$contenedorAux" --network=DMZ --name "$contenedor" $imatge
                     docker network connect DMZ "$contenedor" 
                 else
-                    docker run -itd --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=INTRANET --name "$contenedor" $imatge
+                    docker run -itd --cap-add=NET_ADMIN type=bind,ro --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=INTRANET --name "$contenedor" $imatge
                     docker network connect INTRANET "$contenedor" 
                 fi
             fi
