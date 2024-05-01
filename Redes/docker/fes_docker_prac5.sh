@@ -25,8 +25,9 @@ if ! docker images | grep 'prac5' ; then
     fi    
 
     docker network ls
+fi
 
-    echo -e "Creando contenedores de para el entorno...\n"
+echo -e "Creando contenedores de para el entorno...\n"
     contenedores=('Router' 'Server' 'Client1')
     contenedoresAux=('router' 'server' 'client1')
 
@@ -56,5 +57,4 @@ if ! docker images | grep 'prac5' ; then
 
 
     echo -e "Contenedores activos\:"
-    docker container ls -a
-fi
+    docker container ls
