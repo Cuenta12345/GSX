@@ -6,7 +6,8 @@ if ! docker images | grep 'prac5' ; then
     if [ "$decision" == 'y' ]; then
         # Coloca aquí el código para crear la imagen 'prac3'
         echo "Creando la imagen para la práctica 5..."
-        docker build -t gsx:prac3 -f /home/milax/GSX/Redes/docker/dockerfile_gsx_prac5 .
+        docker build -t gsx:prac5 -f /home/milax/GSX/Redes/docker/dockerfile_gsx_prac5 .
+        docker images
     else
         echo "Saliendo del programa..."
         exit 0
@@ -23,39 +24,37 @@ if ! docker images | grep 'prac5' ; then
         docker network create --driver=bridge --subnet=172.24.248.80/28 --gateway=172.24.248.82 INTRANET
     fi    
 
+    docker network ls
+
     echo -e "Creando contenedores de para el entorno...\n"
-    contenedores=('Router' 'Server' 'DHCP' 'Client1' 'Client2')
-    contenedoresAux=('router' 'server' 'dgcp' 'client1' 'client2')
-    
+    contenedores=('Router' 'Server' 'Client1')
+    contenedoresAux=('router' 'server' 'client1')
+
     echo -e "Contenedores a crear\n"
     for contenedor in "${contenedores[@]}"; do
         echo "$contenedor\n"
     done
 
-    imatge="gsx:prac3"
-
+    imatge="gsx:prac5"
 
     for ((i=0; i<${#contenedores[@]}; i++)); do
         contenedor="${contenedores[i]}"
         contenedorAux="${contenedoresAux[i]}"
         
         if ! docker container ls -a | grep "$contenedor"; then
-            if [ "$contenedor" == 'Router' ]; then
-                docker run -itd --cap-add=NET_ADMIN type=bind,ro --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=ISP --name "$contenedor" $imatge
-                docker network connect DMZ Router
-                docker network connect INTRANET Router
+            if [ "$contenedor" == 'Server' ]; then 
+                docker run -itd --rm --privileged --mount type=bind,src=/home/milax/GSX/Redes/docker/practica5,dst=/root/prac5 --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=DMZ --name "$contenedor" "$imatge"
+            elif [ "$contenedor" == 'Router' ]; then
+                docker run -itd --rm --privileged --mount type=bind,src=/home/milax/GSX/Redes/docker/practica5,dst=/root/prac5,readonly --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=ISP --name "$contenedor" "$imatge"
+                docker network connect DMZ "$contenedor"
+                docker network connect INTRANET "$contenedor"
             else
-                if [ "$contenedor" == 'Server' ]; then 
-                    docker run -itd --privileged --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --mount type=bind,src=./practica5,dst=/root/prac5 --hostname "$contenedorAux" --network=DMZ --name "$contenedor" $imatge
-                    docker network connect DMZ "$contenedor" 
-                else
-                    docker run -itd --cap-add=NET_ADMIN type=bind,ro --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=INTRANET --name "$contenedor" $imatge
-                    docker network connect INTRANET "$contenedor" 
-                fi
+                docker run -itd --rm --privileged --mount type=bind,src=/home/milax/GSX/Redes/docker/practica5,dst=/root/prac5,readonly --cap-add=NET_ADMIN --cap-add=SYS_ADMIN --hostname "$contenedorAux" --network=INTRANET --name "$contenedor" "$imatge"
             fi
         fi
     done
 
+
     echo -e "Contenedores activos\:"
-    docker container ls
+    docker container ls -a
 fi
