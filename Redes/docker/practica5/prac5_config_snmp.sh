@@ -32,8 +32,8 @@ if [ "$HOSTNAME" == "server" ]; then
         	echo "load 12 10 5" >> /etc/snmp/snmpd.conf
 
 	fi
-	
-	DNI="7135048"
+	sed -i 's/mibs :/mibs +All/g' /etc/snmp/snmp.conf
+	DNI="71350248"
 	IND=$(echo $DNI | tr -cd [:digit:] | rev)
 
 	if ! grep -q "createUser gsxViewer SHA aut$IND" /etc/snmp/snmpd.conf; then
