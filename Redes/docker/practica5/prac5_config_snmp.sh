@@ -1,5 +1,4 @@
 #! /bin/bash
-if [ "$HOSTNAME" == "server" ]; then
 	sed -i 's/agentaddress  127.0.0.1,\[::1\]/agentAddress udp:161/g' /etc/snmp/snmpd.conf
 
 	sed -i 's/sysLocation    Sitting on the Dock of the Bay/sysLocation    Casa/g' /etc/snmp/snmpd.conf 
@@ -38,10 +37,9 @@ if [ "$HOSTNAME" == "server" ]; then
 
 	if ! grep -q "createUser gsxViewer SHA aut$IND" /etc/snmp/snmpd.conf; then
 		echo "createUser gsxViewer SHA aut$IND" >> /etc/snmp/snmpd.conf
-                echo "createUser gsxAdmin SHA SHA sec$IND" >> /etc/snmp/snmpd.conf
+                echo "createUser gsxAdmin SHA aut$IND DES sec$IND" >> /etc/snmp/snmpd.conf
                 echo "rouser gsxViewer auth" >> /etc/snmp/snmpd.conf
                 echo "rwuser gsxAdmin priv" >> /etc/snmp/snmpd.conf
 	fi
 	service snmpd restart
 
-fi

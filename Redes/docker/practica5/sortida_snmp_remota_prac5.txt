@@ -1,0 +1,111 @@
+-------------Primeras pruebas-------------
+UCD-SNMP-MIB::dskTable
+dskTable OBJECT-TYPE
+  -- FROM	UCD-SNMP-MIB
+  MAX-ACCESS	not-accessible
+  STATUS	current
+  DESCRIPTION	"Disk watching information.  Partions to be watched
+	 are configured by the snmpd.conf file of the agent."
+::= { iso(1) org(3) dod(6) internet(1) private(4) enterprises(1) ucdavis(2021) 9 }
+-------------Primeras pruebas en Remoto-------------
+Prueba de system
+SNMPv2-MIB::sysDescr.0 = STRING: Linux router 5.10.0-16-amd64 #1 SMP Debian 5.10.127-2 (2022-07-23) x86_64
+SNMPv2-MIB::sysObjectID.0 = OID: NET-SNMP-TC::linux
+DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (14129) 0:02:21.29
+SNMPv2-MIB::sysContact.0 = STRING: Yo
+SNMPv2-MIB::sysName.0 = STRING: router
+SNMPv2-MIB::sysLocation.0 = STRING: Casa
+SNMPv2-MIB::sysServices.0 = INTEGER: 72
+SNMPv2-MIB::sysORLastChange.0 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORID.1 = OID: SNMP-FRAMEWORK-MIB::snmpFrameworkMIBCompliance
+SNMPv2-MIB::sysORID.2 = OID: SNMP-MPD-MIB::snmpMPDCompliance
+SNMPv2-MIB::sysORID.3 = OID: SNMP-USER-BASED-SM-MIB::usmMIBCompliance
+SNMPv2-MIB::sysORID.4 = OID: SNMPv2-MIB::snmpMIB
+SNMPv2-MIB::sysORID.5 = OID: SNMP-VIEW-BASED-ACM-MIB::vacmBasicGroup
+SNMPv2-MIB::sysORID.6 = OID: TCP-MIB::tcpMIB
+SNMPv2-MIB::sysORID.7 = OID: UDP-MIB::udpMIB
+SNMPv2-MIB::sysORID.8 = OID: IP-MIB::ip
+SNMPv2-MIB::sysORID.9 = OID: SNMP-NOTIFICATION-MIB::snmpNotifyFullCompliance
+SNMPv2-MIB::sysORID.10 = OID: NOTIFICATION-LOG-MIB::notificationLogMIB
+SNMPv2-MIB::sysORDescr.1 = STRING: The SNMP Management Architecture MIB.
+SNMPv2-MIB::sysORDescr.2 = STRING: The MIB for Message Processing and Dispatching.
+SNMPv2-MIB::sysORDescr.3 = STRING: The management information definitions for the SNMP User-based Security Model.
+SNMPv2-MIB::sysORDescr.4 = STRING: The MIB module for SNMPv2 entities
+SNMPv2-MIB::sysORDescr.5 = STRING: View-based Access Control Model for SNMP.
+SNMPv2-MIB::sysORDescr.6 = STRING: The MIB module for managing TCP implementations
+SNMPv2-MIB::sysORDescr.7 = STRING: The MIB module for managing UDP implementations
+SNMPv2-MIB::sysORDescr.8 = STRING: The MIB module for managing IP and ICMP implementations
+SNMPv2-MIB::sysORDescr.9 = STRING: The MIB modules for managing SNMP Notification, plus filtering.
+SNMPv2-MIB::sysORDescr.10 = STRING: The MIB module for logging SNMP Notifications.
+SNMPv2-MIB::sysORUpTime.1 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.2 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.3 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.4 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.5 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.6 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.7 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.8 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.9 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.10 = Timeticks: (0) 0:00:00.00
+Prueba de hrSystem
+HOST-RESOURCES-MIB::hrSystemUptime.0 = Timeticks: (453208) 1:15:32.08
+HOST-RESOURCES-MIB::hrSystemDate.0 = STRING: 2024-5-4,16:33:35.0,+0:0
+HOST-RESOURCES-MIB::hrSystemInitialLoadDevice.0 = INTEGER: 393216
+HOST-RESOURCES-MIB::hrSystemInitialLoadParameters.0 = STRING: "BOOT_IMAGE=/boot/vmlinuz-5.10.0-16-amd64 root=UUID=00291e0d-3839-423d-bdc7-66ea0dd2635d ro quiet splash
+"
+HOST-RESOURCES-MIB::hrSystemNumUsers.0 = Gauge32: 0
+HOST-RESOURCES-MIB::hrSystemProcesses.0 = Gauge32: 3
+HOST-RESOURCES-MIB::hrSystemMaxProcesses.0 = INTEGER: 0
+HOST-RESOURCES-MIB::hrSystemMaxProcesses.0 = No more variables left in this MIB View (It is past the end of the MIB tree)
+-------------Pruebas acceso mibs de la Univ Remotas con gsxViewer-------------
+SNMP table: UCD-SNMP-MIB::prTable
+
+ prIndex prNames prMin prMax prCount prErrorFlag               prErrMessage prErrFix prErrFixCmd
+       1  mountd     1     0       0       error  No mountd process running  noError            
+       2    sshd     1     0       0       error    No sshd process running  noError            
+       3   named     1    10       0       error   No named process running  noError            
+       4   dhcpd     1     0       0       error   No dhcpd process running  noError            
+       5 rsyslog     1     0       0       error No rsyslog process running  noError            
+SNMP table: UCD-SNMP-MIB::dskTable
+
+ dskIndex          dskPath dskDevice dskMinimum dskMinPercent dskTotal dskAvail  dskUsed dskPercent dskPercentNode dskTotalLow dskTotalHigh dskAvailLow dskAvailHigh dskUsedLow dskUsedHigh dskErrorFlag                            dskErrorMsg
+        4             /dev     tmpfs         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
+        9         /dev/shm       shm         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
+       10      /root/prac5 /dev/sda1         -1            10        0        0        0          0              0           0            0           0            0          0           0        error /root/prac5: less than 10% free (= 0%)
+       11 /etc/resolv.conf /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+       12    /etc/hostname /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+       13       /etc/hosts /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+SNMP table: UCD-SNMP-MIB::laTable
+
+ laIndex laNames laLoad laConfig laLoadInt laLoadFloat laErrorFlag laErrMessage
+       1  Load-1   0.43    12.00        43    0.430000     noError             
+       2  Load-5   0.25    10.00        25    0.250000     noError             
+       3 Load-15   0.19     5.00        19    0.190000     noError             
+-------------Pruebas acceso mibs de la Univ Remotas con gsxAdmin-------------
+SNMP table: UCD-SNMP-MIB::prTable
+
+ prIndex prNames prMin prMax prCount prErrorFlag               prErrMessage prErrFix prErrFixCmd
+       1  mountd     1     0       0       error  No mountd process running  noError            
+       2    sshd     1     0       0       error    No sshd process running  noError            
+       3   named     1    10       0       error   No named process running  noError            
+       4   dhcpd     1     0       0       error   No dhcpd process running  noError            
+       5 rsyslog     1     0       0       error No rsyslog process running  noError            
+SNMP table: UCD-SNMP-MIB::dskTable
+
+ dskIndex          dskPath dskDevice dskMinimum dskMinPercent dskTotal dskAvail  dskUsed dskPercent dskPercentNode dskTotalLow dskTotalHigh dskAvailLow dskAvailHigh dskUsedLow dskUsedHigh dskErrorFlag                            dskErrorMsg
+        4             /dev     tmpfs         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
+        9         /dev/shm       shm         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
+       10      /root/prac5 /dev/sda1         -1            10        0        0        0          0              0           0            0           0            0          0           0        error /root/prac5: less than 10% free (= 0%)
+       11 /etc/resolv.conf /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+       12    /etc/hostname /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+       13       /etc/hosts /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+SNMP table: UCD-SNMP-MIB::laTable
+
+ laIndex laNames laLoad laConfig laLoadInt laLoadFloat laErrorFlag laErrMessage
+       1  Load-1   0.56    12.00        56    0.560000     noError             
+       2  Load-5   0.27    10.00        27    0.270000     noError             
+       3 Load-15   0.20     5.00        20    0.200000     noError             
+-------------Prueba Remota con gsxViewer-------------
+SNMPv2-MIB::sysDescr.0 = STRING: Linux router 5.10.0-16-amd64 #1 SMP Debian 5.10.127-2 (2022-07-23) x86_64
+-------------Prueba Remota con gsxAdmin--------------
+SNMPv2-MIB::sysDescr.0 = STRING: Linux router 5.10.0-16-amd64 #1 SMP Debian 5.10.127-2 (2022-07-23) x86_64

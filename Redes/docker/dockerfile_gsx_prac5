@@ -8,8 +8,9 @@ RUN echo "deb https://deb.debian.org/debian/ bullseye non-free" > /etc/apt/sourc
     rsyslog \
     snmp \
     snmpd \
+    cron \
     snmp-mibs-downloader
 
 # Copiar y aplicar parche para MIB
-COPY SNMPv2-PDU.diff /root
+COPY ./SNMPv2-PDU.diff /root
 RUN patch /usr/share/snmp/mibs/ietf/SNMPv2-PDU </root/SNMPv2-PDU.diff
