@@ -11,12 +11,12 @@ dskTable OBJECT-TYPE
 Prueba de system
 SNMPv2-MIB::sysDescr.0 = STRING: Linux router 5.10.0-16-amd64 #1 SMP Debian 5.10.127-2 (2022-07-23) x86_64
 SNMPv2-MIB::sysObjectID.0 = OID: NET-SNMP-TC::linux
-DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (14129) 0:02:21.29
+DISMAN-EVENT-MIB::sysUpTimeInstance = Timeticks: (4097) 0:00:40.97
 SNMPv2-MIB::sysContact.0 = STRING: Yo
 SNMPv2-MIB::sysName.0 = STRING: router
 SNMPv2-MIB::sysLocation.0 = STRING: Casa
 SNMPv2-MIB::sysServices.0 = INTEGER: 72
-SNMPv2-MIB::sysORLastChange.0 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORLastChange.0 = Timeticks: (1) 0:00:00.01
 SNMPv2-MIB::sysORID.1 = OID: SNMP-FRAMEWORK-MIB::snmpFrameworkMIBCompliance
 SNMPv2-MIB::sysORID.2 = OID: SNMP-MPD-MIB::snmpMPDCompliance
 SNMPv2-MIB::sysORID.3 = OID: SNMP-USER-BASED-SM-MIB::usmMIBCompliance
@@ -46,10 +46,10 @@ SNMPv2-MIB::sysORUpTime.6 = Timeticks: (0) 0:00:00.00
 SNMPv2-MIB::sysORUpTime.7 = Timeticks: (0) 0:00:00.00
 SNMPv2-MIB::sysORUpTime.8 = Timeticks: (0) 0:00:00.00
 SNMPv2-MIB::sysORUpTime.9 = Timeticks: (0) 0:00:00.00
-SNMPv2-MIB::sysORUpTime.10 = Timeticks: (0) 0:00:00.00
+SNMPv2-MIB::sysORUpTime.10 = Timeticks: (1) 0:00:00.01
 Prueba de hrSystem
-HOST-RESOURCES-MIB::hrSystemUptime.0 = Timeticks: (453208) 1:15:32.08
-HOST-RESOURCES-MIB::hrSystemDate.0 = STRING: 2024-5-4,16:33:35.0,+0:0
+HOST-RESOURCES-MIB::hrSystemUptime.0 = Timeticks: (95217) 0:15:52.17
+HOST-RESOURCES-MIB::hrSystemDate.0 = STRING: 2024-5-5,10:47:18.0,+0:0
 HOST-RESOURCES-MIB::hrSystemInitialLoadDevice.0 = INTEGER: 393216
 HOST-RESOURCES-MIB::hrSystemInitialLoadParameters.0 = STRING: "BOOT_IMAGE=/boot/vmlinuz-5.10.0-16-amd64 root=UUID=00291e0d-3839-423d-bdc7-66ea0dd2635d ro quiet splash
 "
@@ -72,15 +72,15 @@ SNMP table: UCD-SNMP-MIB::dskTable
         4             /dev     tmpfs         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
         9         /dev/shm       shm         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
        10      /root/prac5 /dev/sda1         -1            10        0        0        0          0              0           0            0           0            0          0           0        error /root/prac5: less than 10% free (= 0%)
-       11 /etc/resolv.conf /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
-       12    /etc/hostname /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
-       13       /etc/hosts /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+       11 /etc/resolv.conf /dev/sda1         -1            10 49095324 28994300 17574716         36             11    49095324            0    28994300            0   17574716           0      noError                                       
+       12    /etc/hostname /dev/sda1         -1            10 49095324 28994300 17574716         36             11    49095324            0    28994300            0   17574716           0      noError                                       
+       13       /etc/hosts /dev/sda1         -1            10 49095324 28994300 17574716         36             11    49095324            0    28994300            0   17574716           0      noError                                       
 SNMP table: UCD-SNMP-MIB::laTable
 
  laIndex laNames laLoad laConfig laLoadInt laLoadFloat laErrorFlag laErrMessage
-       1  Load-1   0.43    12.00        43    0.430000     noError             
-       2  Load-5   0.25    10.00        25    0.250000     noError             
-       3 Load-15   0.19     5.00        19    0.190000     noError             
+       1  Load-1   1.04    12.00       104    1.040000     noError             
+       2  Load-5   0.49    10.00        49    0.490000     noError             
+       3 Load-15   0.34     5.00        34    0.340000     noError             
 -------------Pruebas acceso mibs de la Univ Remotas con gsxAdmin-------------
 SNMP table: UCD-SNMP-MIB::prTable
 
@@ -96,15 +96,15 @@ SNMP table: UCD-SNMP-MIB::dskTable
         4             /dev     tmpfs         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
         9         /dev/shm       shm         -1            10    65536    65536        0          0              0       65536            0       65536            0          0           0      noError                                       
        10      /root/prac5 /dev/sda1         -1            10        0        0        0          0              0           0            0           0            0          0           0        error /root/prac5: less than 10% free (= 0%)
-       11 /etc/resolv.conf /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
-       12    /etc/hostname /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
-       13       /etc/hosts /dev/sda1         -1            10 49095324 29015444 17553572         36             11    49095324            0    29015444            0   17553572           0      noError                                       
+       11 /etc/resolv.conf /dev/sda1         -1            10 49095324 28994300 17574716         36             11    49095324            0    28994300            0   17574716           0      noError                                       
+       12    /etc/hostname /dev/sda1         -1            10 49095324 28994300 17574716         36             11    49095324            0    28994300            0   17574716           0      noError                                       
+       13       /etc/hosts /dev/sda1         -1            10 49095324 28994300 17574716         36             11    49095324            0    28994300            0   17574716           0      noError                                       
 SNMP table: UCD-SNMP-MIB::laTable
 
  laIndex laNames laLoad laConfig laLoadInt laLoadFloat laErrorFlag laErrMessage
-       1  Load-1   0.56    12.00        56    0.560000     noError             
-       2  Load-5   0.27    10.00        27    0.270000     noError             
-       3 Load-15   0.20     5.00        20    0.200000     noError             
+       1  Load-1   1.04    12.00       104    1.040000     noError             
+       2  Load-5   0.49    10.00        49    0.490000     noError             
+       3 Load-15   0.34     5.00        34    0.340000     noError             
 -------------Prueba Remota con gsxViewer-------------
 SNMPv2-MIB::sysDescr.0 = STRING: Linux router 5.10.0-16-amd64 #1 SMP Debian 5.10.127-2 (2022-07-23) x86_64
 -------------Prueba Remota con gsxAdmin--------------
