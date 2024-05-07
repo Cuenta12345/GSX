@@ -3,10 +3,10 @@ echo "-------------Primeras pruebas-------------" > sortida_snmp_remota_prac5.tx
 snmptranslate -Td -OS UCD-SNMP-MIB::ucdavis.dskTable >> sortida_snmp_remota_prac5.txt
 
 echo "-------------Primeras pruebas en Remoto-------------" >> sortida_snmp_remota_prac5.txt
-echo "Prueba de system" >> sortida_snmp_remota_prac5.txt
+echo "-------------Prueba de system-------------" >> sortida_snmp_remota_prac5.txt
 snmpwalk -v 2c -c public 198.18.248.1 system >> sortida_snmp_remota_prac5.txt
 
-echo "Prueba de hrSystem" >> sortida_snmp_remota_prac5.txt
+echo "-------------Prueba de hrSystem-------------" >> sortida_snmp_remota_prac5.txt
 snmpwalk -v 2c -c public 198.18.248.1 hrSystem >> sortida_snmp_remota_prac5.txt
 
 echo "-------------Pruebas acceso mibs de la Univ Remotas con gsxViewer-------------" >> sortida_snmp_remota_prac5.txt

@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 # Constante para el umbral de incremento
 LLINDAR=10
