@@ -4,10 +4,13 @@
 LLINDAR=10
 
 # Consulta SNMP para obtener el numero de solicitudes de tipo Set
-snmpset=$(snmpget -v2c -c cilbup localhost SNMPv2-MIB::snmpInSetRequests | awk '{print $4}')
+snmpset=$(snmpget -v2c -c cilbup localhost SNMPv2-MIB::snmpInSetRequests.0 | awk '{print $4}')
 
 # Consulta SNMP para obtener el numero de solicitudes de tipo Get
-snmpget=$(snmpget -v2c -c cilbup localhost SNMPv2-MIB::snmpInGetRequests | awk '{print $4}')
+snmpget=$(snmpget -v2c -c cilbup localhost SNMPv2-MIB::snmpInGetRequests.0 | awk '{print $4}')
+
+echo "Cantidad de set $snmpset"
+echo "Cantidad de get $snmpget"
 
 # Verificar si el numero de solicitudes de tipo Set ha aumentado
 if [ $snmpset -gt 0 ]; then

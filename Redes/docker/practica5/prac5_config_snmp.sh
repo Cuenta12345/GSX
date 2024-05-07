@@ -16,9 +16,11 @@
         	echo "view vistagsx included .1.3.6.1.2.1.11" >> /etc/snmp/snmpd.conf
         	echo "view vistagsx included .0" >> /etc/snmp/snmpd.conf
         	echo "view vistagsx included .1.3.6.1.4.1.2021.2" >> /etc/snmp/snmpd.conf
-		echo "rocommunity cilbup 127.0.0.1" >> /etc/snmp/snmpd.conf
+		echo "view vistagsx included .1.3.6.1.2.1.11.1" >> /etc/snmp/snmpd.conf
+		echo "rocommunity public default -V newView" >> /etc/snmp/snmpd.conf
+		#echo "rocommunity cilbup 127.0.0.1" >> /etc/snmp/snmpd.conf
+		echo "rocommunity cilbup 127.0.0.1 -V vistagsx" >> /etc/snmp/snmpd.conf
 		echo "proc mountd" >> /etc/snmp/snmpd.conf
-
 	        echo "proc sshd" >> /etc/snmp/snmpd.conf
         	echo "proc named 10 1" >> /etc/snmp/snmpd.conf
         	echo "proc dhcpd" >> /etc/snmp/snmpd.conf
