@@ -1,0 +1,65 @@
+milax@casa:~$ dd if=/dev/zero of=swapfile bs=4096k count=16
+16+0 registres llegits
+16+0 registres escrits
+67108864 octets (67 MB, 64 MiB) copiats, 0,134262 s, 500 MB/s
+milax@casa:~$ ls
+Baixades  Documents  Escriptori  fichero_crear_contenedores  GSX  Imatges  lxcGSX  Música  Plantilles  Públic  script.sh  swapfile  token.txt  Vídeos
+milax@casa:~$ ls -l swapfile 
+-rw-r--r-- 1 milax milax 67108864  9 maig 12:25 swapfile
+milax@casa:~$ sudo mkswap swapfile 
+[sudo] contrasenya per a milax: 
+mkswap: swapfile: insecure permissions 0644, 0600 suggested.
+mkswap: swapfile: insecure file owner 1000, 0 (root) suggested.
+Setting up swapspace version 1, size = 64 MiB (67104768 bytes)
+sense etiqueta, UUID=7266199f-3917-4519-a0ae-9e0065208054
+milax@casa:~$ sudo chown root:root swapfile 
+milax@casa:~$ ls -l swapfile 
+-rw-r--r-- 1 root root 67108864  9 maig 12:27 swapfile
+milax@casa:~$ chmod 0600 swapfile 
+chmod: en canviar els permisos de 'swapfile': L’operació no és permesa
+milax@casa:~$ sudo chmod 0600 swapfile 
+milax@casa:~$ ls -l swapfile 
+-rw------- 1 root root 67108864  9 maig 12:27 swapfile
+milax@casa:~$ sudo swapon -s
+Filename				Type		Size	Used	Priority
+/dev/sda5                              	partition	998396	584436	-2
+milax@casa:~$ sudo swapon swapfile 
+milax@casa:~$ sudo swapon -s
+Filename				Type		Size	Used	Priority
+/dev/sda5                              	partition	998396	583412	-2
+/home/milax/swapfile                   	file    	65532	0	-3
+milax@casa:~$ more /etc/fstab 
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda1 during installation
+UUID=00291e0d-3839-423d-bdc7-66ea0dd2635d /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=0dea3819-90fd-4bc4-be8c-4b621d341905 none            swap    sw              0       0
+tmpfs    /root/tmp    tmpfs    size=100M,mode=0700,uid=root,gid=users    0    0
+milax@casa:~$ touch repaso
+milax@casa:~$ 
+	
+Si que nos ha añadido modulos y se puede ber con lsmod
+
+
+Para añadir una impresora se ha realizado lo siguiente:
+	- Se accede al apartado de administración donde se inicia sesion como root
+	- Se pulsa en añadir impresora
+	- Se indica que ha de ser de tipo pdf
+	- Se le añade el nombre lpVirtual
+	- Se ecoge como opcion en el "make" una impreso generica y dentro de esta a que es generic CUPS-PDF (w/opions)
+	- Finalmente se le da a "add printer"
+Pra probar se han seguido estos pasos:
+	- Para comprobar que se ha añadido de manera correctoa primero se ha visualizado desde la interfaz, despues de utiliza el comando "lpstat -a" y "lpstat -p -d" para comproabr que se han añadido y cual es la impresora por defecto
+	- Para cambiar la impresora pordefecto se hace desde la interfaz donde se entra dentro de la impresa pulsando sobre su nombre, se pulsa sobre el segundo deplegable y se pulsa sobre la opcion "Set As Server Default"
+	- Si se vuelve a utilizar "lpstat -p -d" se vera como la impresora por defecto es esta nueva
+	- Para cambiar el directorio por defecto en el que escribir se ha de intercambiar en el fichero /etc/cups/cups-pdf.conf la siguiente linea "Out ${HOME}/PDF" por esta "Out ${HOME}/DocsPDF"
+	- Para probar que funciona se usan los siguientes comandos "lp -d lpVirtual <Fichero a imprimir>" y/o "lp <Fichero a imprimir>"
