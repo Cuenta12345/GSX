@@ -26,3 +26,24 @@ while [ $node -le 4 ]; do
 	fi
 	((node++))
 done
+echo -e "Añadiendo IPs\n"
+node=1
+while [ $node -le 4 ]; do
+	pid=$(docker inspect --format '{{.State.Pid}}' R$node)
+	if [ $node -eq 1 ]; then
+		nsenter -t $pid -n ip addr add 10.248.$node.1/30 dev link${node}_veth1
+		nsenter -t $pid -n ip link set dev link${node}_veth1 up
+
+		nsenter -t $pid -n ip addr add 10.248.4.2/30 dev link4_veth2
+		nsenter -t $pid -n ip link set dev link4_veth2 up
+	else
+                preNode=$((node - 1))
+		nsenter -t $pid -n ip addr add 10.248.$node.1/30 dev link${node}_veth1
+    		nsenter -t $pid -n ip link set dev link${node}_veth1 up
+
+		nsenter -t $pid -n ip addr add 10.248.$preNode.2/30 dev link${preNode}_veth2
+		nsenter -t $pid -n ip link set dev link${preNode}_veth2 up
+        fi
+        ((node++))
+
+done
