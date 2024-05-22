@@ -1,0 +1,10 @@
+# Fitxer: fichero_crear_contenedores
+FROM debian:buster-slim
+MAINTAINER Adrian_GSX
+RUN apt update
+RUN apt-get install -y --no-install-recommends \
+dnsutils ifupdown iproute2 iptables iputils-ping isc-dhcp-client nano procps rsyslog tcpdump \
+initscripts quagga iputils-ping traceroute
+WORKDIR /root
+ADD ./prac7_config_rip.sh /root
+CMD [ "/bin/bash" ]
