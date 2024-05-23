@@ -19,10 +19,10 @@ default via [35m10.248.4.2 [0mdev [36mlink4_veth1 [0mproto zebra metric 20
 [35m10.248.2.0/30 [0mvia [35m10.248.3.1 [0mdev [36mlink3_veth2 [0mproto zebra metric 20 
 [35m10.248.3.0/30 [0mdev [36mlink3_veth2 [0mproto kernel scope link src [35m10.248.3.2 [0m
 [35m10.248.4.0/30 [0mdev [36mlink4_veth1 [0mproto kernel scope link src [35m10.248.4.1 [0m
-
-Hello, this is Quagga (version 1.2.4).
-Copyright 1996-2005 Kunihiro Ishiguro, et al.
-
+
+Hello, this is Quagga (version 1.2.4).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
+
 1# show running-config
 Building configuration...
 
@@ -82,10 +82,10 @@ Routing Protocol is "rip"
     10.248.4.1               0         0       120   00:00:26
   Distance: (default is 120)
 1# exit
-
-Hello, this is Quagga (version 1.2.4).
-Copyright 1996-2005 Kunihiro Ishiguro, et al.
-
+
+Hello, this is Quagga (version 1.2.4).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
+
 2# show running-config
 Building configuration...
 
@@ -140,10 +140,10 @@ Routing Protocol is "rip"
     10.248.2.2               0         0       120   00:00:00
   Distance: (default is 120)
 2# exit
-
-Hello, this is Quagga (version 1.2.4).
-Copyright 1996-2005 Kunihiro Ishiguro, et al.
-
+
+Hello, this is Quagga (version 1.2.4).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
+
 3# show running-config
 Building configuration...
 
@@ -198,10 +198,10 @@ Routing Protocol is "rip"
     10.248.3.2               0         0       120   00:00:03
   Distance: (default is 120)
 3# exit
-
-Hello, this is Quagga (version 1.2.4).
-Copyright 1996-2005 Kunihiro Ishiguro, et al.
-
+
+Hello, this is Quagga (version 1.2.4).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
+
 4# show running-config
 Building configuration...
 
@@ -280,3 +280,31 @@ traceroute to 10.248.3.1 (10.248.3.1), 30 hops max, 60 byte packets
  2  10.248.3.1  0.013 ms  0.008 ms  0.004 ms
 10.248.3.1 via 10.248.4.1 dev link4_veth2 src 10.248.4.2 uid 0 
     cache 
+
+Prueba de salida a internet
+Se probará de lanzar un paquete icmp a 8.8.8.8 con cada router
+
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=118 time=22.8 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 22.770/22.770/22.770/0.000 ms
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=35.3 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 35.287/35.287/35.287/0.000 ms
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=116 time=103 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 102.564/102.564/102.564/0.000 ms
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=101 ms
+
+--- 8.8.8.8 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 100.761/100.761/100.761/0.000 ms
