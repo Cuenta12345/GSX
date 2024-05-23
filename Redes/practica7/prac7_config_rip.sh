@@ -14,7 +14,7 @@ cat <<EOT >> /etc/quagga/ripd.conf
 	network 10.248.4.0/30
 EOT
 	echo 1 > /proc/sys/net/ipv4/ip_forward
-	iptables -t nat -A POSTROUTING -s 10.248.0.0/16 ! -d 10.248.0.0/16 -o 172.17.0.2 -j MASQUERADE
+	iptables -t nat -A POSTROUTING -s 10.248.0.0/16 -o 172.17.0.2 -j MASQUERADE
 
 else
 preNode=$((HOSTNAME - 1))
