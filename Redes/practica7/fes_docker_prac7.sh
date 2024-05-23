@@ -26,3 +26,19 @@ while [ $node -le 4 ]; do
 done
     echo -e "Contenedores activos\:"
     docker container ls
+
+echo -e "ATENCION\nA continaución se requiere el uso de superusuario para crear los enlaces\n"
+sleep 5
+echo -e "A continuación se comprobará si es superusuario, en caso de no serlo, ejecute de nuevo el programa"
+sleep 5
+
+sudo ./crear_enllaços_prac7.sh
+echo -e "\nEnlaces creados con exito\nA continuación se ejecutara la configuración de cada uno de los contenedores\n"
+node=1
+while [ $node -le 4 ]; do
+	docker exec R$node /root/prac7_config_rip.sh
+	((node++))
+done
+
+
+

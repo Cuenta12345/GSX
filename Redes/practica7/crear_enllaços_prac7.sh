@@ -4,7 +4,6 @@ if [ "$EUID" -ne 0 ]; then
   echo "Por favor, ejecuta este script como superusuario (sudo)" 
   exit 1
 fi
-
 echo -e "Creando redes\n"
 node=1
 while [ $node -le 4 ]; do
