@@ -39,6 +39,3 @@ while [ $node -le 4 ]; do
 	docker exec R$node /root/prac7_config_rip.sh
 	((node++))
 done
-
-
-

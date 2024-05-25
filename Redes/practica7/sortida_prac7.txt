@@ -1,145 +1,17 @@
-default via [35m172.17.0.1 [0mdev [36meth0 [0m
-[35m10.248.1.0/30 [0mdev [36mlink1_veth1 [0mproto kernel scope link src [35m10.248.1.1 [0m
-[35m10.248.2.0/30 [0mvia [35m10.248.1.2 [0mdev [36mlink1_veth1 [0mproto zebra metric 20 
-[35m10.248.3.0/30 [0mvia [35m10.248.1.2 [0mdev [36mlink1_veth1 [0mproto zebra metric 20 
-[35m10.248.4.0/30 [0mdev [36mlink4_veth2 [0mproto kernel scope link src [35m10.248.4.2 [0m
-[35m172.17.0.0/16 [0mdev [36meth0 [0mproto kernel scope link src [35m172.17.0.2 [0m
-default via [35m10.248.1.1 [0mdev [36mlink1_veth2 [0mproto zebra metric 20 
-[35m10.248.1.0/30 [0mdev [36mlink1_veth2 [0mproto kernel scope link src [35m10.248.1.2 [0m
-[35m10.248.2.0/30 [0mdev [36mlink2_veth1 [0mproto kernel scope link src [35m10.248.2.1 [0m
-[35m10.248.3.0/30 [0mvia [35m10.248.2.2 [0mdev [36mlink2_veth1 [0mproto zebra metric 20 
-[35m10.248.4.0/30 [0mvia [35m10.248.1.1 [0mdev [36mlink1_veth2 [0mproto zebra metric 20 
+Comprobacion de daemons de R3
+
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                3979                3958                0                   10:30               pts/0               00:00:00            /bin/bash
+systemd+            4413                3979                0                   10:30               ?                   00:00:00            /usr/sbin/ripd -d -A 127.0.0.1 -f /etc/quagga/ripd.conf
+systemd+            4437                3979                0                   10:30               ?                   00:00:00            /usr/sbin/zebra -d -A 127.0.0.1 -f /etc/quagga/zebra.conf
+
+Comprobacion tablas de encaminamiento
+
 default via [35m10.248.2.1 [0mdev [36mlink2_veth2 [0mproto zebra metric 20 
 [35m10.248.1.0/30 [0mvia [35m10.248.2.1 [0mdev [36mlink2_veth2 [0mproto zebra metric 20 
 [35m10.248.2.0/30 [0mdev [36mlink2_veth2 [0mproto kernel scope link src [35m10.248.2.2 [0m
 [35m10.248.3.0/30 [0mdev [36mlink3_veth1 [0mproto kernel scope link src [35m10.248.3.1 [0m
 [35m10.248.4.0/30 [0mvia [35m10.248.3.2 [0mdev [36mlink3_veth1 [0mproto zebra metric 20 
-default via [35m10.248.4.2 [0mdev [36mlink4_veth1 [0mproto zebra metric 20 
-[35m10.248.1.0/30 [0mvia [35m10.248.4.2 [0mdev [36mlink4_veth1 [0mproto zebra metric 20 
-[35m10.248.2.0/30 [0mvia [35m10.248.3.1 [0mdev [36mlink3_veth2 [0mproto zebra metric 20 
-[35m10.248.3.0/30 [0mdev [36mlink3_veth2 [0mproto kernel scope link src [35m10.248.3.2 [0m
-[35m10.248.4.0/30 [0mdev [36mlink4_veth1 [0mproto kernel scope link src [35m10.248.4.1 [0m
-
-Hello, this is Quagga (version 1.2.4).
-Copyright 1996-2005 Kunihiro Ishiguro, et al.
-
-1# show running-config
-Building configuration...
-
-Current configuration:
-!
-!
-interface eth0
-!
-interface link1_veth1
-!
-interface link4_veth2
-!
-interface lo
-!
-router rip
- version 2
- default-information originate
- network 10.248.1.0/30
- network 10.248.4.0/30
- passive-interface eth0
-!
-ip forwarding
-!
-line vty
-!
-end
-1# show ip route
-Codes: K - kernel route, C - connected, S - static, R - RIP,
-       O - OSPF, I - IS-IS, B - BGP, P - PIM, A - Babel, N - NHRP,
-       > - selected route, * - FIB route
-
-K>* 0.0.0.0/0 via 172.17.0.1, eth0
-C>* 10.248.1.0/30 is directly connected, link1_veth1
-R>* 10.248.2.0/30 [120/2] via 10.248.1.2, link1_veth1, 00:01:19
-R>* 10.248.3.0/30 [120/2] via 10.248.4.1, link4_veth2, 00:00:43
-C>* 10.248.4.0/30 is directly connected, link4_veth2
-C>* 127.0.0.0/8 is directly connected, lo
-C>* 172.17.0.0/16 is directly connected, eth0
-1# show ip rip status
-Routing Protocol is "rip"
-  Sending updates every 30 seconds with +/-50%, next due in 11 seconds
-  Timeout after 180 seconds, garbage collect after 120 seconds
-  Outgoing update filter list for all interface is not set
-  Incoming update filter list for all interface is not set
-  Default redistribution metric is 1
-  Redistributing:
-  Default version control: send version 2, receive version 2 
-    Interface        Send  Recv   Key-chain
-    link1_veth1      2     2      
-    link4_veth2      2     2      
-  Routing for Networks:
-    10.248.1.0/30
-    10.248.4.0/30
-  Routing Information Sources:
-    Gateway          BadPackets BadRoutes  Distance Last Update
-    10.248.1.2               0         0       120   00:00:05
-    10.248.4.1               0         0       120   00:00:26
-  Distance: (default is 120)
-1# exit
-
-Hello, this is Quagga (version 1.2.4).
-Copyright 1996-2005 Kunihiro Ishiguro, et al.
-
-2# show running-config
-Building configuration...
-
-Current configuration:
-!
-!
-interface link1_veth2
-!
-interface link2_veth1
-!
-interface lo
-!
-router rip
- version 2
- network 10.248.1.0/30
- network 10.248.2.0/30
-!
-ip forwarding
-!
-line vty
-!
-end
-2# show ip route
-Codes: K - kernel route, C - connected, S - static, R - RIP,
-       O - OSPF, I - IS-IS, B - BGP, P - PIM, A - Babel, N - NHRP,
-       > - selected route, * - FIB route
-
-R>* 0.0.0.0/0 [120/2] via 10.248.1.1, link1_veth2, 00:02:08
-C>* 10.248.1.0/30 is directly connected, link1_veth2
-C>* 10.248.2.0/30 is directly connected, link2_veth1
-R>* 10.248.3.0/30 [120/2] via 10.248.2.2, link2_veth1, 00:02:05
-R>* 10.248.4.0/30 [120/2] via 10.248.1.1, link1_veth2, 00:02:08
-C>* 127.0.0.0/8 is directly connected, lo
-2# show ip rip status
-Routing Protocol is "rip"
-  Sending updates every 30 seconds with +/-50%, next due in 2 seconds
-  Timeout after 180 seconds, garbage collect after 120 seconds
-  Outgoing update filter list for all interface is not set
-  Incoming update filter list for all interface is not set
-  Default redistribution metric is 1
-  Redistributing:
-  Default version control: send version 2, receive version 2 
-    Interface        Send  Recv   Key-chain
-    link1_veth2      2     2      
-    link2_veth1      2     2      
-  Routing for Networks:
-    10.248.1.0/30
-    10.248.2.0/30
-  Routing Information Sources:
-    Gateway          BadPackets BadRoutes  Distance Last Update
-    10.248.1.1               0         0       120   00:00:09
-    10.248.2.2               0         0       120   00:00:00
-  Distance: (default is 120)
-2# exit
 
 Hello, this is Quagga (version 1.2.4).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
@@ -171,15 +43,15 @@ Codes: K - kernel route, C - connected, S - static, R - RIP,
        O - OSPF, I - IS-IS, B - BGP, P - PIM, A - Babel, N - NHRP,
        > - selected route, * - FIB route
 
-R>* 0.0.0.0/0 [120/3] via 10.248.2.1, link2_veth2, 00:02:34
-R>* 10.248.1.0/30 [120/2] via 10.248.2.1, link2_veth2, 00:02:34
+R>* 0.0.0.0/0 [120/3] via 10.248.2.1, link2_veth2, 00:06:12
+R>* 10.248.1.0/30 [120/2] via 10.248.2.1, link2_veth2, 00:06:12
 C>* 10.248.2.0/30 is directly connected, link2_veth2
 C>* 10.248.3.0/30 is directly connected, link3_veth1
-R>* 10.248.4.0/30 [120/2] via 10.248.3.2, link3_veth1, 00:02:31
+R>* 10.248.4.0/30 [120/2] via 10.248.3.2, link3_veth1, 00:06:12
 C>* 127.0.0.0/8 is directly connected, lo
 3# show ip rip status
 Routing Protocol is "rip"
-  Sending updates every 30 seconds with +/-50%, next due in 8 seconds
+  Sending updates every 30 seconds with +/-50%, next due in 2 seconds
   Timeout after 180 seconds, garbage collect after 120 seconds
   Outgoing update filter list for all interface is not set
   Incoming update filter list for all interface is not set
@@ -194,117 +66,57 @@ Routing Protocol is "rip"
     10.248.3.0/30
   Routing Information Sources:
     Gateway          BadPackets BadRoutes  Distance Last Update
-    10.248.2.1               0         0       120   00:00:23
-    10.248.3.2               0         0       120   00:00:03
+    10.248.2.1               0         0       120   00:00:32
+    10.248.3.2               0         0       120   00:00:34
   Distance: (default is 120)
 3# exit
+1: [36mlo: [0m<LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback [33m00:00:00:00:00:00[0m brd [33m00:00:00:00:00:00[0m
+    inet [35m127.0.0.1[0m/8 scope host lo
+       valid_lft forever preferred_lft forever
+26: [36mlink2_veth2@if27: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state [32mUP [0mgroup default qlen 1000
+    link/ether [33m7a:c3:8f:58:81:48[0m brd [33mff:ff:ff:ff:ff:ff[0m link-netnsid 1
+    inet [35m10.248.2.2[0m/30 scope global link2_veth2
+       valid_lft forever preferred_lft forever
+29: [36mlink3_veth1@if28: [0m<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state [32mUP [0mgroup default qlen 1000
+    link/ether [33mea:4b:1a:86:d3:5b[0m brd [33mff:ff:ff:ff:ff:ff[0m link-netnsid 2
+    inet [35m10.248.3.1[0m/30 scope global link3_veth1
+       valid_lft forever preferred_lft forever
+PING 10.248.3.1 (10.248.3.1) 56(84) bytes of data.
+64 bytes from 10.248.3.1: icmp_seq=1 ttl=63 time=0.073 ms
 
-Hello, this is Quagga (version 1.2.4).
-Copyright 1996-2005 Kunihiro Ishiguro, et al.
-
-4# show running-config
-Building configuration...
-
-Current configuration:
-!
-!
-interface link3_veth2
-!
-interface link4_veth1
-!
-interface lo
-!
-router rip
- version 2
- network 10.248.3.0/30
- network 10.248.4.0/30
-!
-ip forwarding
-!
-line vty
-!
-end
-4# show running-config                   show ip route
-Codes: K - kernel route, C - connected, S - static, R - RIP,
-       O - OSPF, I - IS-IS, B - BGP, P - PIM, A - Babel, N - NHRP,
-       > - selected route, * - FIB route
-
-R>* 0.0.0.0/0 [120/2] via 10.248.4.2, link4_veth1, 00:03:03
-R>* 10.248.1.0/30 [120/2] via 10.248.4.2, link4_veth1, 00:03:03
-R>* 10.248.2.0/30 [120/2] via 10.248.3.1, link3_veth2, 00:03:03
-C>* 10.248.3.0/30 is directly connected, link3_veth2
-C>* 10.248.4.0/30 is directly connected, link4_veth1
-C>* 127.0.0.0/8 is directly connected, lo
-4# show ip rip status
-Routing Protocol is "rip"
-  Sending updates every 30 seconds with +/-50%, next due in 26 seconds
-  Timeout after 180 seconds, garbage collect after 120 seconds
-  Outgoing update filter list for all interface is not set
-  Incoming update filter list for all interface is not set
-  Default redistribution metric is 1
-  Redistributing:
-  Default version control: send version 2, receive version 2 
-    Interface        Send  Recv   Key-chain
-    link3_veth2      2     2      
-    link4_veth1      2     2      
-  Routing for Networks:
-    10.248.3.0/30
-    10.248.4.0/30
-  Routing Information Sources:
-    Gateway          BadPackets BadRoutes  Distance Last Update
-    10.248.3.1               0         0       120   00:00:24
-    10.248.4.2               0         0       120   00:00:07
-  Distance: (default is 120)
-4# exit
+--- 10.248.3.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.073/0.073/0.073/0.000 ms
 traceroute to 10.248.3.1 (10.248.3.1), 30 hops max, 60 byte packets
- 1  10.248.4.1  0.029 ms  0.005 ms  0.004 ms
- 2  10.248.3.1  0.026 ms  0.005 ms  0.004 ms
-Baixem la interfície link4_veth1
+ 1  10.248.4.1  0.078 ms  0.011 ms  0.007 ms
+ 2  10.248.3.1  0.027 ms  0.010 ms  0.011 ms
 traceroute to 10.248.3.1 (10.248.3.1), 30 hops max, 60 byte packets
- 1  172.17.0.1  0.066 ms  0.015 ms  0.005 ms
- 2  10.0.2.2  0.213 ms  0.135 ms  0.105 ms
+ 1  10.248.4.1  0.047 ms  0.090 ms  0.062 ms
+ 2  10.248.3.1  0.019 ms  0.009 ms  0.008 ms
+Baixem la interfície link4_veth1 ...
+10.248.3.1 via 172.17.0.1 dev eth0 src 172.17.0.2 uid 0 
+    cache 
+traceroute to 10.248.3.1 (10.248.3.1), 30 hops max, 60 byte packets
+ 1  172.17.0.1  0.081 ms  0.014 ms  0.021 ms
+ 2  10.0.2.2  1.034 ms  0.583 ms  0.339 ms
  3  * * *
  4  * * *
  5  * * *
  6  * * *
  7  * * *
- 8  * 10.248.3.1  0.043 ms  0.007 ms
+ 8  * * *
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+13  * * 10.248.3.1  0.080 ms
 traceroute to 10.248.3.1 (10.248.3.1), 30 hops max, 60 byte packets
- 1  10.248.1.2  0.030 ms  0.005 ms  0.003 ms
- 2  10.248.3.1  0.011 ms  0.004 ms *
-10.248.3.1 via 10.248.1.2 dev link1_veth1 src 10.248.1.1 uid 0 
-    cache 
-Pujen la interfície link4_veth1
-traceroute to 10.248.3.1 (10.248.3.1), 30 hops max, 60 byte packets
- 1  10.248.4.1  0.061 ms  0.013 ms  0.004 ms
- 2  10.248.3.1  0.013 ms  0.008 ms  0.004 ms
+ 1  10.248.1.2  0.043 ms  0.009 ms  0.007 ms
+ 2  10.248.3.1  0.092 ms  0.026 ms  0.018 ms
+Pujen la interfície link4_veth1 ...
 10.248.3.1 via 10.248.4.1 dev link4_veth2 src 10.248.4.2 uid 0 
     cache 
-
-Prueba de salida a internet
-Se probará de lanzar un paquete icmp a 8.8.8.8 con cada router
-
-PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=118 time=22.8 ms
-
---- 8.8.8.8 ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 22.770/22.770/22.770/0.000 ms
-PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=35.3 ms
-
---- 8.8.8.8 ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 35.287/35.287/35.287/0.000 ms
-PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=116 time=103 ms
-
---- 8.8.8.8 ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 102.564/102.564/102.564/0.000 ms
-PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
-64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=101 ms
-
---- 8.8.8.8 ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 100.761/100.761/100.761/0.000 ms
+traceroute to 10.248.3.1 (10.248.3.1), 30 hops max, 60 byte packets
+ 1  10.248.4.1  0.077 ms  0.010 ms  0.010 ms
+ 2  10.248.3.1  0.019 ms  0.017 ms  0.010 ms
