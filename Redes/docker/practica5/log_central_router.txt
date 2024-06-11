@@ -1,0 +1,14 @@
+May  7 18:55:08 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInSetRequests al router ha aumentado demasiado: 12
+May  7 18:55:08 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInGetRequests al router ha aumentado demasiado: 20
+May  7 18:55:33 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInSetRequests al router ha aumentado demasiado: 12
+May  7 18:55:33 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInGetRequests al router ha aumentado demasiado: 22
+May  7 19:00:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInSetRequests al router ha aumentado demasiado: 12
+May  7 19:00:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInGetRequests al router ha aumentado demasiado: 24
+May  7 19:24:32 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInSetRequests al router ha aumentado demasiado: 12
+May  7 19:24:32 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInGetRequests al router ha aumentado demasiado: 26
+May  7 19:25:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInSetRequests al router ha aumentado demasiado: 12
+May  7 19:25:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInGetRequests al router ha aumentado demasiado: 28
+May  7 19:30:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInSetRequests al router ha aumentado demasiado: 12
+May  7 19:30:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInGetRequests al router ha aumentado demasiado: 30
+May  7 19:35:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInSetRequests al router ha aumentado demasiado: 12
+May  7 19:35:02 router GSX: AVIS: el valor de SNMPv2-MIB::snmpInGetRequests al router ha aumentado demasiado: 32

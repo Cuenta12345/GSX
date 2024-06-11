@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Comprova si hi ha arguments
+if [ $# -eq 0 ]; then
+    echo "Error: No s'ha proporcionat cap opció o arxiu per imprimir."
+    exit 1
+fi
+
+# Demana la paraula clau
+echo -n "Introdueix la paraula clau: "
+stty -echo
+read paraula_clau
+stty echo
+echo
+
+# Comprova la paraula clau
+if [ "$paraula_clau" != "siusplau" ]; then
+    echo "Error: La paraula clau és incorrecta."
+    exit 1
+fi
+
+# Executa la comanda lp amb totes les opcions i arguments proporcionats
+/usr/bin/lp "$@"
